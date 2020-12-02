@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -47,9 +49,55 @@ public class AmendResGUI extends JFrame {
 
     public static void main(String args[]){
 
-        Object AddRes =new AddResGUI();
+        Object AmendRes =new AmendResGUI();
     }
+    private class WindowEventHandler implements WindowListener {
 
+        public void windowOpened(WindowEvent e) {
+            JOptionPane.showMessageDialog(null, "Amend Reservation Window now opened", "Amend Reservation Window Opened",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        public void windowClosing(WindowEvent e) {
+            JOptionPane.showMessageDialog(null, "Now closing window", "Closing Amend Reservation Window",
+                    JOptionPane.INFORMATION_MESSAGE);
+            int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit this application?", "Exiting Application Confirmation",
+                    JOptionPane.YES_NO_CANCEL_OPTION);
+
+            if (choice == JOptionPane.YES_OPTION)
+                dispose();
+        }
+
+        @Override
+        public void windowClosed(WindowEvent e) {
+            JOptionPane.showMessageDialog(null, "Amend Reservation Window Closed", "Amend Customer Window Closed",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        @Override
+        public void windowIconified(WindowEvent e) {
+            JOptionPane.showMessageDialog(null, "Amend Reservation Window Minimised", "Amend Customer Window Minimised",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        @Override
+        public void windowDeiconified(WindowEvent e) {
+            JOptionPane.showMessageDialog(null, "Amend Reservation Window Unminimised", "Amend Reservation Window Unminimised",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+            MainMenu mnu = new MainMenu();
+        }
+
+        @Override
+        public void windowActivated(WindowEvent e) {
+            System.out.println("Amend Reservation Window Activated");
+        }
+
+        @Override
+        public void windowDeactivated(WindowEvent e) {
+            System.out.println("Amend Reservation Window Deactivated");
+        }
+    }
 
 
     private JPanel createTitlePanel() {
@@ -176,9 +224,9 @@ public class AmendResGUI extends JFrame {
     private JPanel createSubmitPanel() {
         JPanel jpanel = new JPanel();
 
-        JButton amendResButton = new JButton("Amend Reservation");
+        JButton addButton = new JButton("Add Reservation");
 
-        amendResButton.addActionListener(new ActionListener() {
+        addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -187,7 +235,7 @@ public class AmendResGUI extends JFrame {
                 Reservations reservations;
 
                 if (date.length() >= 7) { //if date of birth comes from the date chooser app it'll be good anyway but
-                    //we need some tests if the user supplies it manually in the text-field
+                    //                    //we need some tests if the user supplies it manually in the text-field
 
                     try {
                         int day = Integer.parseInt(date.substring(0, 2));
@@ -240,12 +288,6 @@ public class AmendResGUI extends JFrame {
                         {
                             JOptionPane.showMessageDialog(null,"You did not enter a valid customer ID!","Error!!",JOptionPane.ERROR_MESSAGE);
                         }
-                        String resS = resStatusField.getText();
-                        if (resS != null && !resS.isEmpty()) {
-                        }
-                        else {
-                            JOptionPane.showMessageDialog(null, "You did not enter a valid reservation Status  ", "Error!!", JOptionPane.ERROR_MESSAGE);
-                        }
                         int ppl = 0;
                         String Pp = peopleField.getText();
                         if (Pp != null && !Pp.isEmpty()) {
@@ -256,89 +298,102 @@ public class AmendResGUI extends JFrame {
                             JOptionPane.showMessageDialog(null,"You did not enter a valid people  amount  ","Error!!",JOptionPane.ERROR_MESSAGE);
 
                         }
-                        Reservations r1 = new Reservations(1,1,1,1,dateChosen,"CI",83.12f);
-                        Reservations r2 = new Reservations(2,6,5,2,dateChosen,"PB",73.12f);
-                        Reservations r3 = new Reservations(3,5,3,2,dateChosen,"CI",84.12f);
-                        Reservations r4 = new Reservations(4,4,2,6,dateChosen,"C",1223.12f);
-                        Reservations r5 = new Reservations(5,3,4,5,dateChosen,"W",13.12f);
-                        Reservations r6 = new Reservations(6,2,7,4,dateChosen,"W",123.12f);
 
                         ArrayList<Reservations> allRes = new ArrayList<Reservations>();
+
                         ArrayList<Reservations> foundRes = new ArrayList<Reservations>();
-                        String searchKey = JOptionPane.showInputDialog("Please enter the ID of the Reservation you wish to amend");
 
-                        for (Reservations ar: allRes)
-                            if(ar.getResID()==searchKey)
-                                foundRes.add(ar);
-                        String text="";
+                        int searchKey = Integer.parseInt(JOptionPane.showInputDialog("Please enter the number of the reservation you wish to amend"));
+                        for (Reservations Ar : allRes)
+                            if (Ar.getResID()==String.valueOf(searchKey))
+                                foundRes.add(Ar);
 
-                        for (Reservations ar: foundRes)
-                            if (ar !=null){
-                                text+=ar+"\n";
+                        String text = "";
+
+                        for (Reservations Ar : foundRes)
+                            if (Ar != null) {
+                                text += Ar + "\n";
                             }
-                        Reservations c = new Reservations(rA,cus,tN,ppl,dateChosen,resS,bA);
+                        int searchID = Integer.parseInt(JOptionPane.showInputDialog("The following reservations matched your search phrase\n\n" + text +
+                                "\n\nPlease enter the id of the one you want to amend"));
+                        Reservations ResToAmend = null;
 
-                        int searchID = Integer.parseInt(JOptionPane.showInputDialog("The following matched your search phrase\n\n" + text +
-                                "\n\nEnter the id of the one do you want to amend"));
-                        Reservations ResToAmend=null;
+                        for (Reservations Ar : foundRes)
+                            if (Ar != null && Ar.getResID()==String.valueOf(searchID))
+                                ResToAmend = Ar;
+                        for (Reservations Ar : foundRes)
+                        if (Ar != null && Ar.getCustID()==searchID)
+                            ResToAmend = Ar;
+                        for (Reservations Ar : foundRes)
+                        if (Ar != null && Ar.getTableNo()==searchID)
+                            ResToAmend = Ar;
+                        for (Reservations Ar : foundRes)
+                        if (Ar != null && Ar.getPeople()==String.valueOf(searchID))
+                            ResToAmend = Ar;
+                        for (Reservations Ar : foundRes)
+                        if (Ar.getDate()== new GregorianCalendar(searchID,searchID,searchID))
+                            ResToAmend = Ar;
+                        for (Reservations Ar : foundRes)
+                        if (Ar != null && Ar.getBillAmount()==String.valueOf(searchID))
+                            ResToAmend = Ar;
 
-                        for(Reservations ar: foundRes)
-                            if(ar!=null && ar.getResID().equals(searchKey))
-                                ResToAmend = ar;
-                        String amendChoice = JOptionPane.showInputDialog("The details of the product you wish to amend are:\n\n" + ResToAmend + "\n\n1. Amend Reservation ID\n2. Amend Table number " +
-                                "\n3. Amend The Reservation Amount of People\n4. Amend Reservation Status"+
-                                "\n5. Amend Bill Amount \n6. Cancel Amendment\n\nPlease enter your choice");
+                        String amendChoice = JOptionPane.showInputDialog("The details of the reservations you wish to amend are:\n\n" + ResToAmend + "\n\n1. Amend Reservation ID \n2. Amend Customer ID" +
+                                "\n3. Amend table number\n4. Amend people amount\n5. Amend Reservation date\n6. Amend Reservation Status\n7. Amend Bill Amount \n8. Cancel Amendment\n\nPlease enter your choice");
 
                         int amendChoiceAsInt = Integer.parseInt(amendChoice);
-                        while(amendChoiceAsInt<1 || amendChoiceAsInt>6){
-                            amendChoice = JOptionPane.showInputDialog("The details of the product you wish to amend are:\n\n" +
-                                    ResToAmend + "\n\\n1. Amend Reservation ID\n2. Amend Table number" +
-                                                                  "\n3. Amend The Reservation Amount of People\n4. Amend Reservation Status" +
-                                                                   "\n5. Amend Bill Amount \n6. Cancel Amendment\n\nInvalid choice entered!! Must be a value between 1 and 7 inclusive");
+                        while(amendChoiceAsInt<1 || amendChoiceAsInt>8){
+                            amendChoice = JOptionPane.showInputDialog("The details of the Table you wish to amend are:\n\n" +
+                                    ResToAmend + "\n\n1. Amend Reservation ID \n2. Amend Customer ID" +
+                                    "\n3. Amend table number\n4. Amend people amount\n5. Amend Reservation date" +
+                                    "\n6. Amend Reservation Status\n7. Amend Bill Amount \n8. Cancel Amendment\n" +
+                                    "\nPlease enter your choice\nMust be a value between 1 and 3 inclusive");
 
                             amendChoiceAsInt = Integer.parseInt(amendChoice);
                         }
                         switch(amendChoice){
                             case "1":
-                                String newResIDAsString = JOptionPane.showInputDialog("Please enter the new Reservation ID for the Reservation:");
+                                String newResIDAsString = JOptionPane.showInputDialog("Please enter the new Reservation ID for the reservation:");
                                 int newResID = Integer.parseInt(newResIDAsString);
                                 ResToAmend.setResID(newResID);
-                                c.setResID(newResID);
                                 break;
 
                             case "2":
-                                String newTableNoAsString = JOptionPane.showInputDialog("Please enter the new Table Number for the Reservation:");
-                                int newTableNo = Integer.parseInt(newTableNoAsString);
-                                ResToAmend.setTableNo(newTableNo);
-                                c.setTableNo(newTableNo);
 
+                                String newCustIDAsString = JOptionPane.showInputDialog("Please enter the new Customer ID for the reservation:");
+                                int newCustID = Integer.parseInt(newCustIDAsString);
+                                ResToAmend.setCustID(newCustID);
                                 break;
                             case "3":
-                                int newPeople = Integer.parseInt(JOptionPane.showInputDialog("Please enter the new Table Number for the Reservation:"));
-                                ResToAmend.setPeople(newPeople);
-                                c.setPeople(newPeople);
-
-                                break;
+                                String newTableNoAsString = JOptionPane.showInputDialog("Please enter the new Table number for the reservation:");
+                                int newTableNo = Integer.parseInt(newTableNoAsString);
+                                ResToAmend.setTableNo(newTableNo);
                             case "4":
-                                String newResStatus = JOptionPane.showInputDialog("Please enter the new status for the Reservation:");
-                                ResToAmend.setResStatus(newResStatus);
-                                c.setResStatus(newResStatus);
+                                String newPeopleAsString = JOptionPane.showInputDialog("Please enter the new amount of people for the table:");
+                                int newPeople = Integer.parseInt(newPeopleAsString);
+                                ResToAmend.setPeople(newPeople);
 
                                 break;
                             case "5":
-                               String newBillAmountString = JOptionPane.showInputDialog("Please enter the new Table Number for the Reservation:");
-                                float newBillAmount = Float.parseFloat(newBillAmountString);
-                                ResToAmend.setBillAmount(newBillAmount);
-                                c.setBillAmount(newBillAmount);
+                                int newDay = Integer.parseInt(JOptionPane.showInputDialog("Please enter the new day of reservation for the table:"));
+                                int newMonth = Integer.parseInt(JOptionPane.showInputDialog("Please enter the new month for the reservation for the table:"));
+                                int newYear = Integer.parseInt(JOptionPane.showInputDialog("Please enter the new year for the reservation for the table:"));
+                                GregorianCalendar  newDate = new GregorianCalendar(newDay,newMonth,newYear);
                                 break;
                             case "6":
-                                break;
+                                String newResStatus = JOptionPane.showInputDialog("Please enter the new status for the reservation for the table:");
+                                ResToAmend.setResStatus(newResStatus);
+                            case "7":
+                                String newBillAmount = JOptionPane.showInputDialog("Please enter the new bill amount  for the table:");
+                                float newBill = Float.parseFloat(newBillAmount);
+                                ResToAmend.setBillAmount(newBill);
 
+                            case "8":
+                                break;
                         }
-                        allRes.add(ResToAmend);
                         JOptionPane.showMessageDialog(null,"Reservation details now amended!",
                                 "Reservation Amended",JOptionPane.INFORMATION_MESSAGE);
                         foundRes.clear();
+
 
 
                         Reservations r = new Reservations(rA,tN,cus,ppl,dateGC, resStatusField.getText(),bA);
@@ -365,7 +420,7 @@ public class AmendResGUI extends JFrame {
                     JOptionPane.showMessageDialog(null, "Date of Reservation must be at least 7 characters long", "Invalid Date of Reservation", JOptionPane.ERROR_MESSAGE);
             }});
 
-        jpanel.add(amendResButton);
+        jpanel.add(addButton);
 
         return jpanel;
     }

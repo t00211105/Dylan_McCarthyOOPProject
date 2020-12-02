@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -44,9 +46,56 @@ public class AmendCustomerGUI extends JFrame {
         Object AmendCustomer =new AmendCustomerGUI();
     }
 
+    private class WindowEventHandler implements WindowListener {
+
+        public void windowOpened(WindowEvent e) {
+            JOptionPane.showMessageDialog(null, "Window now opened", "Window Opened",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        public void windowClosing(WindowEvent e) {
+            JOptionPane.showMessageDialog(null, "Now closing window", "Closing Window",
+                    JOptionPane.INFORMATION_MESSAGE);
+            int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit this application?", "Exiting Application Confirmation",
+                    JOptionPane.YES_NO_CANCEL_OPTION);
+
+            if (choice == JOptionPane.YES_OPTION)
+                dispose();
+        }
+
+        @Override
+        public void windowClosed(WindowEvent e) {
+            JOptionPane.showMessageDialog(null, "Amend Customer Window Closed", "Amend Customer Window Closed",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        @Override
+        public void windowIconified(WindowEvent e) {
+            JOptionPane.showMessageDialog(null, "Amend Customer Window Minimised", "Amend Customer Window Minimised",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        @Override
+        public void windowDeiconified(WindowEvent e) {
+            JOptionPane.showMessageDialog(null, "Amend Customer Window Unminimised", "Amend CustomerWindow Unminimised",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+            MainMenu mnu = new MainMenu();
+        }
+
+        @Override
+        public void windowActivated(WindowEvent e) {
+            System.out.println("Amend Customer Window Activated");
+        }
+
+        @Override
+        public void windowDeactivated(WindowEvent e) {
+            System.out.println("Amend Customer Window Deactivated");
+        }
+    }
 
 
-    private JPanel createTitlePanel() {
+        private JPanel createTitlePanel() {
 
         JPanel jpanel = new JPanel();
 
@@ -133,9 +182,9 @@ public class AmendCustomerGUI extends JFrame {
                     if (phn!= null && !phn.isEmpty()) {
                         phnNum = Integer.parseInt(phn);
                     }
-                    else {
+                    else
                         JOptionPane.showMessageDialog(null, "You did not enter a valid phone number", "Error!!", JOptionPane.ERROR_MESSAGE);
-                    }
+
                     Customers c1 = new Customers(1,"Dylan",112345678);
                     Customers c2 = new Customers(2,"Mary",1234567);
                     Customers c3 = new Customers(3,"Raymond",1233656);
@@ -145,29 +194,32 @@ public class AmendCustomerGUI extends JFrame {
 
                     ArrayList<Customers> allCus = new ArrayList<Customers>(Arrays.asList(c1,c2,c3,c4,c5,c6));
                     ArrayList<Customers> foundCustomers = new ArrayList<Customers>();
-                    int searchKey =ci;
 
-                    for (Customers cr: allCus)
-                        if(cr.getCustID()==searchKey)
-                            foundCustomers.add(cr);
-                    String text="";
 
-                    for (Customers cr: foundCustomers)
-                        if (cr !=null){
-                            text+=cr+"\n";
+                    int searchKey = Integer.parseInt(JOptionPane.showInputDialog("Please enter the Customer ID you wish to amend"));
+                    for (Customers Ac : allCus)
+                        if (Ac.getCustID() == searchKey)
+                            foundCustomers.add(Ac);
+
+                    String text = "";
+
+                    for (Customers Ac : foundCustomers)
+                        if (Ac != null) {
+                            text += Ac + "\n";
                         }
-                    int searchID = Integer.parseInt(JOptionPane.showInputDialog("The following matched your search phrase\n\n" + text +
-                            "\n\nEnter the id of the one do you want to amend"));
-                    Customers CustomerToAmend=null;
+                    int searchID = Integer.parseInt(JOptionPane.showInputDialog("The following customers matched your search phrase\n\n" + text +
+                            "\n\nPlease enter the id of the one you want to amend"));
+                    Customers CustomerToAmend = null;
 
-                    for(Customers cr: foundCustomers)
-                        if(cr!=null && cr.getCustID()==searchID)
-                            CustomerToAmend = cr;
-                    String amendChoice = JOptionPane.showInputDialog("The details of the customer you wish to amend are:\n\n" + CustomerToAmend + "\n\n1. Amend Customer ID\n2. Amend Name" +
-                            "\n3. Amend Phone number\n\nPlease enter your choice");
+                    for (Customers Ac : foundCustomers)
+                        if (Ac != null && Ac.getCustID() == searchID)
+                            CustomerToAmend = Ac;
+
+                    String amendChoice = JOptionPane.showInputDialog("The details of the customer you wish to amend are:\n\n" + CustomerToAmend + "\n\n1. Amend Customer ID\n2. Amend Customers Name" +
+                            "\n3. Amend Customer Phone Number\n4. Exit Application\n\nPlease enter your choice");
 
                     int amendChoiceAsInt = Integer.parseInt(amendChoice);
-                    while(amendChoiceAsInt<1 || amendChoiceAsInt>4){
+                    while(amendChoiceAsInt<1 || amendChoiceAsInt>5){
                         amendChoice = JOptionPane.showInputDialog("The details of the Customers you wish to amend are:\n\n" +
                                 CustomerToAmend + "\n\n1. Amend Customer ID\n2. Amend Name" +
                                 "\n3. Amend Phone Number\n4. Exit Application\n\nInvalid choice entered!! Must be a value between 1 and 3 inclusive");
@@ -180,22 +232,15 @@ public class AmendCustomerGUI extends JFrame {
                             String newCustIdAsString = JOptionPane.showInputDialog("Please enter the new Customer Id for the Customers:");
                             int newCustId= Integer.parseInt(newCustIdAsString);
                             CustomerToAmend.setCustID(newCustId);
-                            c1.setCustID(newCustId);
-
                             break;
                         case "2":
                             String newName = JOptionPane.showInputDialog("Please enter the new name for the Customers:");
-
                             CustomerToAmend.setName(newName);
-                             c1.setName(newName);
-
                             break;
                         case "3":
                             String newPhnNoAsstring = JOptionPane.showInputDialog("Please enter the new phone number for the Customers:");
                             long newPhnNo=Long.parseLong(newPhnNoAsstring);
-
                             CustomerToAmend.setPhoneNo(newPhnNo);
-                            c1.setPhoneNo(newPhnNo);
                             break;
                         case "4":
                             break;
@@ -222,4 +267,6 @@ public class AmendCustomerGUI extends JFrame {
 
         return jpanel;
     }
+
+
 }

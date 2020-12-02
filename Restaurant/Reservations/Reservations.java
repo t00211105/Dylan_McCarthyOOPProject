@@ -7,12 +7,14 @@ public class Reservations extends AddResGUI{
     private static int resID;
     private int people;
     private int tableNo;
+    private int custID;
     private GregorianCalendar date;
     private String resStatus;
     private float billAmount;
 
     public Reservations(int resID,int custID, int tableNo, int people, GregorianCalendar date, String resStatus, float billAmount) {
         setResID(resID);
+        setCustID(custID);
         setPeople(people);
         setDate(date);
         setTableNo(tableNo);
@@ -65,6 +67,13 @@ public class Reservations extends AddResGUI{
         return date;
 
     }
+    public void setCustID(int custID) {
+        this.custID=custID;
+    }
+
+    public int getCustID() {
+        return custID;
+    }
 
     public void setDate(GregorianCalendar date) {
         this.date = date;
@@ -90,7 +99,7 @@ public class Reservations extends AddResGUI{
     public String getBillAmount() {
         return String.valueOf(billAmount);
     }
-    public float totalRevenue(float billAmount){
+    public static float totalRevenue(float billAmount){
         float totalRev = 0;
         totalRev += billAmount;
         return totalRev;
@@ -124,6 +133,7 @@ public class Reservations extends AddResGUI{
                 "\nReservation status: " + getResStatus() +
                 "\nBill amount: " + getBillAmount();
     }
+
 
 }
 

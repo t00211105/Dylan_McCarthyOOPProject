@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -45,7 +47,55 @@ public class AmendTablesGUI extends JFrame {
 
         Object AmendTable =new AmendTablesGUI();
     }
+    private class WindowEventHandler implements WindowListener {
 
+        public void windowOpened(WindowEvent e) {
+            JOptionPane.showMessageDialog(null, "Window now opened", "Window Opened",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        public void windowClosing(WindowEvent e) {
+            JOptionPane.showMessageDialog(null, "Now closing window", "Closing Window",
+                    JOptionPane.INFORMATION_MESSAGE);
+            int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit this application?", "Exiting Application Confirmation",
+                    JOptionPane.YES_NO_CANCEL_OPTION);
+
+            if (choice == JOptionPane.YES_OPTION)
+                dispose();
+        }
+
+        @Override
+        public void windowClosed(WindowEvent e) {
+            JOptionPane.showMessageDialog(null, "Amend Table Window Closed", "Amend Table Window Closed",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+            MainMenu mnu = new MainMenu();
+        }
+
+        @Override
+        public void windowIconified(WindowEvent e) {
+            JOptionPane.showMessageDialog(null, "Amend Table Window Minimised", "Amend Table Window Minimised",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        @Override
+        public void windowDeiconified(WindowEvent e) {
+            JOptionPane.showMessageDialog(null, "Amend Table Window Unminimised", "Amend Table Window Unminimised",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+            MainMenu mnu = new MainMenu();
+        }
+
+        @Override
+        public void windowActivated(WindowEvent e) {
+            System.out.println("Amend Tables Window Activated");
+        }
+
+        @Override
+        public void windowDeactivated(WindowEvent e) {
+            System.out.println("Amend Tables Window Deactivated");
+        }
+    }
 
 
     private JPanel createTitlePanel() {
@@ -173,33 +223,34 @@ public class AmendTablesGUI extends JFrame {
                     }
 
                     ArrayList<Tables> foundTables = new ArrayList<Tables>();
-                    String searchKey = JOptionPane.showInputDialog("Please enter the name of the product you wish to amend");
 
-                    for (Tables at: allTables)
-                        if(at.getName().toLowerCase().contains(searchKey.toLowerCase()))
-                            foundTables.add(at);
-                    String text="";
+                    int searchKey = Integer.parseInt(JOptionPane.showInputDialog("Please enter the number of the table you wish to amend"));
+                    for (Tables rt : allTables)
+                        if (rt.getTableNo() == searchKey)
+                            foundTables.add(rt);
 
-                    for (Tables at: foundTables)
-                        if (at !=null){
-                            text+=at+"\n";
+                    String text = "";
+
+                    for (Tables rt : foundTables)
+                        if (rt != null) {
+                            text += rt + "\n";
                         }
-                    int searchID = Integer.parseInt(JOptionPane.showInputDialog("The following matched your search phrase\n\n" + text +
-                            "\n\nEnter the id of the one do you want to amend"));
-                    Tables TablesToAmend=null;
+                    int searchID = Integer.parseInt(JOptionPane.showInputDialog("The following tables matched your search phrase\n\n" + text +
+                            "\n\nPlease enter the id of the one you want to remove"));
+                    Tables TableToAmend = null;
 
-                    for(Tables at: foundTables)
-                        if(at!=null && at.getTableNo()==searchID)
-                            TablesToAmend = at;
-                    String amendChoice = JOptionPane.showInputDialog("The details of the product you wish to amend are:\n\n" + TablesToAmend + "\n\n1. Amend Table number\n2. Amend Table size" +
+                    for (Tables rt : foundTables)
+                        if (rt != null && rt.getTableNo() == searchID)
+                            TableToAmend = rt;
+
+                    String amendChoice = JOptionPane.showInputDialog("The details of the table you wish to amend are:\n\n" + TableToAmend + "\n\n1. Amend Table number\n2. Amend Table size" +
                             "\n3. Amend table description\n4. Amend table status\n5. Cancel Amendment\n\nPlease enter your choice");
 
                     int amendChoiceAsInt = Integer.parseInt(amendChoice);
                     while(amendChoiceAsInt<1 || amendChoiceAsInt>5){
                         amendChoice = JOptionPane.showInputDialog("The details of the Table you wish to amend are:\n\n" +
-                                TablesToAmend + "\n\n1. Amend Name\n2. Amend Description" +
+                                TableToAmend + "\n\n1. Amend Name\n2. Amend Description" +
                                 "\n3. Cancel Amendment\n\nInvalid choice entered!! Must be a value between 1 and 3 inclusive");
-
                         amendChoiceAsInt = Integer.parseInt(amendChoice);
                     }
                     switch(amendChoice){
@@ -207,23 +258,23 @@ public class AmendTablesGUI extends JFrame {
                             String newTableNoAsString = JOptionPane.showInputDialog("Please enter the new table number for the table:");
                             int newTableNo = Integer.parseInt(newTableNoAsString);
 
-                            TablesToAmend.setTableNo(newTableNo);
+                            TableToAmend.setTableNo(newTableNo);
 
                             break;
                         case "2":
                             String newTableSizeAsString = JOptionPane.showInputDialog("Please enter the new table size for the table:");
                             int newTableSize = Integer.parseInt(newTableSizeAsString);
 
-                            TablesToAmend.setTableSize(newTableSize);
+                            TableToAmend.setTableSize(newTableSize);
                             break;
                         case "3":
                             String newDescription = JOptionPane.showInputDialog("Please enter the new description for the table:");
-                            TablesToAmend.setDescription(newDescription);
+                            TableToAmend.setDescription(newDescription);
 
                             break;
                         case "4":
                             String newTableStatus = JOptionPane.showInputDialog("Please enter the new status for the table:");
-                            TablesToAmend.setStatus(newTableStatus);
+                            TableToAmend.setStatus(newTableStatus);
 
                             break;
                         case "5":
