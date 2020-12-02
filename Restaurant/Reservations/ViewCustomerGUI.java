@@ -62,7 +62,7 @@ public class ViewCustomerGUI extends JFrame {
 
         @Override
         public void windowClosed(WindowEvent e) {
-            JOptionPane.showMessageDialog(null, "View Customers Window Closed", "Remove Table Window Closed",
+            JOptionPane.showMessageDialog(null, "View Customers Window Closed", "View Table Window Closed",
                     JOptionPane.INFORMATION_MESSAGE);
 
             MainMenu mnu = new MainMenu();
@@ -70,13 +70,13 @@ public class ViewCustomerGUI extends JFrame {
 
         @Override
         public void windowIconified(WindowEvent e) {
-            JOptionPane.showMessageDialog(null, "View Customers Window Minimised", "Add Customers Window Minimised",
+            JOptionPane.showMessageDialog(null, "View Customers Window Minimised", "View Customers Window Minimised",
                     JOptionPane.INFORMATION_MESSAGE);
         }
 
         @Override
         public void windowDeiconified(WindowEvent e) {
-            JOptionPane.showMessageDialog(null, "View Customers Window Unminimised", "Add Customers Window Unminimised",
+            JOptionPane.showMessageDialog(null, "View Customers Window Unminimised", "View Customers Window Unminimised",
                     JOptionPane.INFORMATION_MESSAGE);
 
             MainMenu mnu = new MainMenu();

@@ -71,13 +71,13 @@ public class RemoveCustomerGUI extends JFrame {
 
         @Override
         public void windowIconified(WindowEvent e) {
-            JOptionPane.showMessageDialog(null, "Remove Customers Window Minimised", "Add Customers Window Minimised",
+            JOptionPane.showMessageDialog(null, "Remove Customers Window Minimised", "Remove Customers Window Minimised",
                     JOptionPane.INFORMATION_MESSAGE);
         }
 
         @Override
         public void windowDeiconified(WindowEvent e) {
-            JOptionPane.showMessageDialog(null, "Remove Customers Window Unminimised", "Add Customers Window Unminimised",
+            JOptionPane.showMessageDialog(null, "Remove Customers Window Unminimised", "Remove Customers Window Unminimised",
                     JOptionPane.INFORMATION_MESSAGE);
 
             MainMenu mnu = new MainMenu();
