@@ -43,6 +43,11 @@ public class MainMenu extends JFrame implements ActionListener {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocation(250, 200);
         setVisible(true);
+        setIconImage(new ImageIcon("res1.jpg").getImage());
+    }
+
+    private void setIconImage(String s) {
+        return;
     }
 
 
@@ -61,6 +66,9 @@ public class MainMenu extends JFrame implements ActionListener {
         }
         if(menuName.equals(("Remove Tables"))) {
             RemoveTableGUI Rt = new RemoveTableGUI();
+        }
+        if(menuName.equals(("View Tables"))) {
+            ViewTableGUI Vt = new ViewTableGUI();
         }
 
         if(menuName.equals(("Make Reservations"))) {
