@@ -35,6 +35,7 @@ public class PBResGUI extends JFrame {
         setSize(500,500);
         setVisible(true);
         setResizable(false);
+        setIconImage(new ImageIcon("res1.jpg").getImage());
 
     }
 
@@ -177,10 +178,10 @@ public class PBResGUI extends JFrame {
                         if(rr!=null && rr.getResID()==String.valueOf(searchID))
                             ResToPB =rr;
 
-                    int removeChoice = JOptionPane.showConfirmDialog(null,"The details of the reservations you wish to for are:\n\n" +
+                    int pbChoice = JOptionPane.showConfirmDialog(null,"The details of the reservations you wish to for are:\n\n" +
                             ResToPB + "\n\nAre you sure you wish to pay the bill for this reservation?","Reservation Removal Confirmation",JOptionPane.YES_NO_CANCEL_OPTION);
 
-                    if(removeChoice==JOptionPane.YES_OPTION) {
+                    if(pbChoice==JOptionPane.YES_OPTION) {
                         ResToPB.setResStatus("PB");
                         allRes.add(ResToPB);
                         JOptionPane.showMessageDialog(null, "Reservation bill is paid!",

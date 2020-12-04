@@ -34,7 +34,11 @@ public class viewResGUI extends JFrame {
         setSize(500,500);
         setVisible(true);
         setResizable(false);
+        setIconImage(new ImageIcon("res1.jpg").getImage());
 
+    }
+    public void setImage(String s){
+        return;
     }
 
     public static void main(String args[]){

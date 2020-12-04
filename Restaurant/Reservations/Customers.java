@@ -1,8 +1,9 @@
 package Reservations;
 
 import javax.swing.*;
+import java.io.Serializable;
 
-public class Customers {
+public class Customers implements Serializable {
     private int custID;
     private String name;
     private int phoneNo;

@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -38,10 +39,16 @@ public class AddCustomerGUI extends JFrame {
         setSize(500,500);
         setVisible(true);
         setResizable(false);
+        setIconImage(new ImageIcon("res1.jpg").getImage());
+
+
 
     }
+    public void setImage(String s){
+        return;
+    }
 
-    public static void main(String args[]){
+    public static void main(String args[]) throws Exception{
 
         Object AddCustomer =new AddCustomerGUI();
     }
@@ -162,8 +169,82 @@ public class AddCustomerGUI extends JFrame {
         btnAddCustomer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    int ci = 0;
+                 try {
+                     File outfile = new File("Restaurant/customerData");
+
+                     try
+                    {
+                        FileOutputStream Cus = new FileOutputStream(outfile);
+                       Customers c1 = new Customers(1,"Dylan",112345678);
+                        Customers c2 = new Customers(2,"Mary",1234567);
+                        Customers c3 = new Customers(3,"Raymond",1233656);
+                        Customers c4 = new Customers(4,"Tyler",12345432);
+                        Customers c5 = new Customers(5,"Evan",1239944);
+                        Customers c6 = new Customers(6,"Kyle",1874318);
+
+                        ArrayList<Customers> allCus = new ArrayList<Customers>(Arrays.asList(c1,c2,c3,c4,c5,c6));
+                        ObjectOutputStream CusOos = new ObjectOutputStream(Cus);
+
+                        CusOos.writeObject(allCus);
+
+                        CusOos.close();
+
+                    } catch(FileNotFoundException fnfe){
+                         System.out.println(fnfe.getStackTrace());
+                         JOptionPane.showMessageDialog(null,"File could not be found!",
+                                 "Problem Finding File!",JOptionPane.ERROR_MESSAGE);
+
+                     } catch (IOException ioe)
+                    {
+                        ioe.printStackTrace();
+                    }
+                     File inFile = new File("Restaurant/customerData");
+                     try {
+                         FileInputStream inStream = new FileInputStream(inFile);
+
+                         ObjectInputStream objectInStream = new ObjectInputStream(inStream);
+
+                         Customers c1 = (Customers) objectInStream.readObject();
+                         Customers c2 = (Customers) objectInStream.readObject();
+                         Customers c3 = (Customers) objectInStream.readObject();
+                         Customers c4 = (Customers) objectInStream.readObject();
+                         Customers c5 = (Customers) objectInStream.readObject();
+                         Customers c6 = (Customers) objectInStream.readObject();
+                         Customers c7 = (Customers) objectInStream.readObject();
+                         Customers c8 = (Customers) objectInStream.readObject();
+
+
+                         ArrayList<Customers> custObj = (ArrayList<Customers>) objectInStream.readObject();
+
+                         String custMix = "";
+
+                         for (Customers cs : custObj)
+                             custMix += cs + "\n";
+
+                         inStream.close();
+                     }
+                     catch(FileNotFoundException fnfe){
+                         fnfe.printStackTrace();
+                         JOptionPane.showMessageDialog(null,"File could not be found!",
+                                 "Problem Finding File!",JOptionPane.ERROR_MESSAGE);
+                     }
+                     catch(IOException ioe){
+                         ioe.printStackTrace();
+                         JOptionPane.showMessageDialog(null,"File could not be read","problem writing to file",JOptionPane.ERROR_MESSAGE);
+                     } catch (ClassNotFoundException cnfe) {
+                         cnfe.printStackTrace();
+
+                         JOptionPane.showMessageDialog(null,"Could not convert object to the appropriate class!","Problem Converting Object Read From File!",JOptionPane.ERROR_MESSAGE);
+
+
+                     }
+
+                     catch (ClassCastException cce) {
+                         cce.printStackTrace();
+                         JOptionPane.showMessageDialog(null,"Could not convert the object to the appropriate class!","Problem Converting Object!",JOptionPane.ERROR_MESSAGE);
+                     }
+
+                     int ci = 0;
                     String custId = custIDField.getText();
                     if (custId != null && !custId.isEmpty()) {
                         ci = Integer.parseInt(custId);
@@ -188,21 +269,12 @@ public class AddCustomerGUI extends JFrame {
                     else {
                         JOptionPane.showMessageDialog(null, "You did not enter a valid phone number", "Error!!", JOptionPane.ERROR_MESSAGE);
                     }
-                    Customers c1 = new Customers(1,"Dylan",112345678);
-                    Customers c2 = new Customers(2,"Mary",1234567);
-                    Customers c3 = new Customers(3,"Raymond",1233656);
-                    Customers c4 = new Customers(4,"Tyler",12345432);
-                    Customers c5 = new Customers(5,"Evan",1239944);
-                    Customers c6 = new Customers(6,"Kyle",1874318);
-
-                    ArrayList<Customers> allCus = new ArrayList<Customers>(Arrays.asList(c1,c2,c3,c4,c5,c6));
 
                     Customers c = new Customers(ci, name,phnNum);
+                    ArrayList<Customers>allCus= new ArrayList<Customers>();
                     allCus.add(c);
 
-
-                        JOptionPane.showMessageDialog(null, "Customer details added\n\nDetails are:  " + c, "Customer Is Added", JOptionPane.INFORMATION_MESSAGE);
-
+                    JOptionPane.showMessageDialog(null, "Customer details added\n\nDetails are:  " + c, "Customer Is Added", JOptionPane.INFORMATION_MESSAGE);
 
                 } catch (NumberFormatException nfe) {
                 } catch (IllegalArgumentException iae) {

@@ -36,6 +36,7 @@ public class ViewCustomerGUI extends JFrame {
         setSize(500,200);
         setVisible(true);
         setResizable(false);
+        setIconImage(new ImageIcon("res1.jpg").getImage());
 
     }
 

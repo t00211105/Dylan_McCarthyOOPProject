@@ -1,8 +1,24 @@
 package Reservations;
 
+/*****************************************************
 
-//JMenuFrame.java
-/* Demonstrates the use of menus in a GUI. Here there is one JMenuBar,2 JMenus and 8 JMenuItem objects.When a menu item is selected, a string showing which menu choice is selected will appear in a label on the frame*/
+ *    Code from a fellow student   (include this comment for clarity)
+ *    Title: MainMenu.java, lines 29
+
+ *    Author: T0021105: Dylan McCarthy
+
+ *    Site owner/sponsor:  John Brosnan lab 13/14
+
+ *    Date: 4/12/2020
+
+ *    Code version:  NA
+ *    Availability:  NA
+
+
+
+ *    Modified:  Code refactored (Identifiers renamed)
+
+ *****************************************************/
 
 
 

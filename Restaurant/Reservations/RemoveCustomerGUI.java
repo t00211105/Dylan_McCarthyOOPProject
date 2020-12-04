@@ -37,6 +37,7 @@ public class RemoveCustomerGUI extends JFrame {
         setSize(500,500);
         setVisible(true);
         setResizable(false);
+        setIconImage(new ImageIcon("res1.jpg").getImage());
 
     }
 

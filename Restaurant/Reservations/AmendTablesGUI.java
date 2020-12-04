@@ -40,6 +40,7 @@ public class AmendTablesGUI extends JFrame {
         setSize(500,500);
         setVisible(true);
         setResizable(false);
+        setIconImage(new ImageIcon("res1.jpg").getImage());
 
     }
 
@@ -236,7 +237,7 @@ public class AmendTablesGUI extends JFrame {
                             text += rt + "\n";
                         }
                     int searchID = Integer.parseInt(JOptionPane.showInputDialog("The following tables matched your search phrase\n\n" + text +
-                            "\n\nPlease enter the id of the one you want to remove"));
+                            "\n\nPlease enter the id of the one you want to amend"));
                     Tables TableToAmend = null;
 
                     for (Tables rt : foundTables)

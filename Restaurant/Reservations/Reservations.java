@@ -1,9 +1,10 @@
 package Reservations;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class Reservations extends AddResGUI{
+public class Reservations extends AddResGUI implements Serializable {
     private static int resID;
     private int people;
     private int tableNo;

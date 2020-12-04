@@ -6,6 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -38,10 +42,11 @@ public class AmendCustomerGUI extends JFrame {
         setSize(500,500);
         setVisible(true);
         setResizable(false);
+        setIconImage(new ImageIcon("res1.jpg").getImage());
 
     }
 
-    public static void main(String args[]){
+    public static void main(String args[]) throws Exception{
 
         Object AmendCustomer =new AmendCustomerGUI();
     }
@@ -159,7 +164,16 @@ public class AmendCustomerGUI extends JFrame {
         btnAmendCustomer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                ArrayList<Customers>allCus= new ArrayList<Customers>();
+
                 try {
+                    FileInputStream CusFis = new FileInputStream("Restaurant/CustomerData");
+                    ObjectInputStream CusOis = new ObjectInputStream(CusFis);
+
+                    allCus = (ArrayList)CusOis.readObject();
+
+                    CusOis.close();
+                    CusFis.close();
                     int ci = 0;
                     String custId = custIDField.getText();
                     if (custId != null && !custId.isEmpty()) {
@@ -185,18 +199,22 @@ public class AmendCustomerGUI extends JFrame {
                     else
                         JOptionPane.showMessageDialog(null, "You did not enter a valid phone number", "Error!!", JOptionPane.ERROR_MESSAGE);
 
-                    Customers c1 = new Customers(1,"Dylan",112345678);
+                   /* Customers c1 = new Customers(1,"Dylan",112345678);
                     Customers c2 = new Customers(2,"Mary",1234567);
                     Customers c3 = new Customers(3,"Raymond",1233656);
                     Customers c4 = new Customers(4,"Tyler",12345432);
                     Customers c5 = new Customers(5,"Evan",1239944);
-                    Customers c6 = new Customers(6,"Kyle",1874318);
+                    Customers c6 = new Customers(6,"Kyle",1874318);*/
 
-                    ArrayList<Customers> allCus = new ArrayList<Customers>(Arrays.asList(c1,c2,c3,c4,c5,c6));
+
+
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                } catch (ClassNotFoundException classNotFoundException) {
+                    classNotFoundException.printStackTrace();
+                    int searchKey = Integer.parseInt(JOptionPane.showInputDialog("Please enter the Customer ID you wish to amend"));
                     ArrayList<Customers> foundCustomers = new ArrayList<Customers>();
 
-
-                    int searchKey = Integer.parseInt(JOptionPane.showInputDialog("Please enter the Customer ID you wish to amend"));
                     for (Customers Ac : allCus)
                         if (Ac.getCustID() == searchKey)
                             foundCustomers.add(Ac);
@@ -245,6 +263,7 @@ public class AmendCustomerGUI extends JFrame {
                         case "4":
                             break;
                     }
+                    allCus.add(CustomerToAmend);
 
                     JOptionPane.showMessageDialog(null,"Customer details now amended!",
                             "Customer Amended",JOptionPane.INFORMATION_MESSAGE);
@@ -261,6 +280,7 @@ public class AmendCustomerGUI extends JFrame {
 
                     }
                 }
+
             } });
 
         jpanel.add(btnAmendCustomer);

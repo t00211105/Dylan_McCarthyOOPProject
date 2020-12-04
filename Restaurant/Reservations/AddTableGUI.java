@@ -8,6 +8,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.io.*;
 
 
 public class AddTableGUI extends JFrame {
@@ -40,13 +41,17 @@ public class AddTableGUI extends JFrame {
         setSize(500,500);
         setVisible(true);
         setResizable(false);
+        setIconImage(new ImageIcon("res1.jpg").getImage());
 
     }
-
-    public static void main(String args[]){
-
-        Object AddTable =new AddTableGUI();
+    public void setImage(String s){
+        return;
     }
+
+    public static void main(String args[]) throws Exception{
+
+        Object AddTable = new AddTableGUI();
+        }
 
     private class WindowEventHandler implements WindowListener {
 
@@ -169,9 +174,11 @@ public class AddTableGUI extends JFrame {
 
         btnAddTable.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed (ActionEvent e) {
+                File TableFile = new File("Restaurant/tables.data");
+                ArrayList<Object> allTables = new ArrayList<Object>();
                 Tables t1 =new Tables(1,2,"High table","A");
-                Tables t2 =new Tables(2,2,"High table","A");
+                Tables t2 =new Tables(2,2,"A table","D");
                 Tables t3 =new Tables(3,3,"Corner Table","U");
                 Tables t4 =new Tables(4,4,"Window Table","A");
                 Tables t5 =new Tables(5,1,"Balcony table","U");
@@ -179,10 +186,59 @@ public class AddTableGUI extends JFrame {
                 Tables t7 =new Tables(7,5,"Circular table","A");
                 Tables t8 =new Tables(8,4,"High table","D");
                 Tables t9 =new Tables(9,4,"High table","U");
-
-                ArrayList<Tables> allTables = new ArrayList<Tables>(Arrays.asList(t1,t2,t3,t4,t5,t6,t7,t8,t9));
+                allTables.add(t1);
+                allTables.add(t2);
+                allTables.add(t3);
+                allTables.add(t4);
+                allTables.add(t5);
+                allTables.add(t6);
+                allTables.add(t7);
+                allTables.add(t8);
+                allTables.add(t9);
 
                 try {
+                    FileOutputStream tblStream = new FileOutputStream(TableFile);
+
+                    ObjectOutputStream tblOtStream = new ObjectOutputStream(tblStream);
+
+                    tblOtStream.writeObject(allTables);
+                    tblOtStream.close();
+                    tblStream.close();
+
+                }
+                catch(FileNotFoundException fnfe){
+                    System.out.println(fnfe.getStackTrace());
+                    JOptionPane.showMessageDialog(null,"File could not be found!",
+                            "Problem Finding File!",JOptionPane.ERROR_MESSAGE);
+                }
+                catch(IOException ioe){
+                    System.out.println(ioe.getStackTrace());
+                    JOptionPane.showMessageDialog(null,"File could not be written!",
+                            "Problem Writing to File!",JOptionPane.ERROR_MESSAGE);
+                }
+
+
+                File inFile	= new File("Restaurant/tables.data");
+
+                try {
+                    FileInputStream inStream = new FileInputStream(inFile);
+
+                    ObjectInputStream objectInStream = new ObjectInputStream(inStream);
+
+                    objectInStream.close();
+                    inStream.close();
+                }
+                catch(FileNotFoundException fnfe){
+                    fnfe.printStackTrace();
+                    JOptionPane.showMessageDialog(null,"File could not be found!",
+                            "Problem Finding File!",JOptionPane.ERROR_MESSAGE);
+                } catch (IOException ioException) {
+                    System.out.println("ioException is caught");
+                    ioException.printStackTrace();
+
+
+
+                    try {
                         int tN = 0;
                         String tableNo = tableNoField.getText();
                         if (tableNo != null && !tableNo.isEmpty()) {
@@ -219,11 +275,10 @@ public class AddTableGUI extends JFrame {
                         }
                         else
                         {
-                            JOptionPane.showMessageDialog(null,"You did not enter a valid table description","Error!!",JOptionPane.ERROR_MESSAGE);
-
+                         JOptionPane.showMessageDialog(null,"You did not enter a valid table description","Error!!",JOptionPane.ERROR_MESSAGE);
                         }
                         Tables tn = new Tables(tN,tS,desc,status);
-                      allTables.add(tn);
+                        allTables.add(tn);
 
 
                         JOptionPane.showMessageDialog(null, "Table details added\n\nDetails are:  " + tn, "Table Is Added", JOptionPane.INFORMATION_MESSAGE);
@@ -242,7 +297,9 @@ public class AddTableGUI extends JFrame {
                             JOptionPane.showMessageDialog(null, "The Date of Reservation must have day and month values that must be valid", "Invalid Date", JOptionPane.ERROR_MESSAGE);
 
                     }
-                } });
+
+                }
+            }});
 
         jpanel.add(btnAddTable);
 

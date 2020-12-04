@@ -1,6 +1,8 @@
 package Reservations;
 
-public class Tables extends AddTableGUI{
+import java.io.Serializable;
+
+public class Tables implements Serializable {
     private int tableNo;
     private int tableSize;
     private String description;
