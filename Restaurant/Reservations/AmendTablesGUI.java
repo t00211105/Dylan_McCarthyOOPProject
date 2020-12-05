@@ -9,7 +9,27 @@ import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+//AmendTablesGUI.java
+/*This java class is accessed through the MainMenu.java. It receives its objects constructors through its constructor class Tables.java
+ *This class asks the user to input tableNo,tableSize,status and all details are validated then the system clarifies to the user are to enter the tableNo twice to confirm  the amendments with a confirmation message.Then the System
+ * chooses the details they want to update details within a switch statement and saves the new details in the allTables ArrayList
+ */
+/*****************************************************
 
+ *    Title: AmendTableGUI.java,
+
+ *    Author: T0021105: Dylan McCarthy
+
+ *    Site owner/sponsor:  John Brosnan lab 12/13
+
+ *    Date: 5/12/2020
+
+ *    Code version:  NA
+ *
+ *    Availability:  NA
+ *
+
+ *****************************************************/
 public class AmendTablesGUI extends JFrame {
 
     private Insets normalInsets = new Insets(10, 10, 0, 10);
@@ -112,6 +132,22 @@ public class AmendTablesGUI extends JFrame {
     }
 
     private JPanel createDetailsPanel() {
+        /*****************************************************
+
+         *    Title: AmendTablesGUI.java, lines 132-165
+
+         *    Author: T0021105: Dylan McCarthy
+
+         *    Site owner/sponsor:  John Brosnan lab 13
+
+         *    Date: 5/12/2020
+
+         *    Code version:  NA
+         *
+         *    Availability:  NA
+         *
+
+         *****************************************************/
 
         JPanel jpanel = new JPanel();
         jpanel.setLayout(new GridBagLayout());
@@ -223,6 +259,23 @@ public class AmendTablesGUI extends JFrame {
 
                     }
 
+                    /*****************************************************
+
+                     *    Title: AmendResGUI.java, lines 29
+
+                     *    Author: T0021105: Dylan McCarthy
+
+                     *    Site owner/sponsor:  John Brosnan lab 12
+
+                     *    Date: 5/12/2020
+
+                     *    Code version:  NA
+                     *
+                     *    Availability:  NA
+                     *
+
+                     *****************************************************/
+
                     ArrayList<Tables> foundTables = new ArrayList<Tables>();
 
                     int searchKey = Integer.parseInt(JOptionPane.showInputDialog("Please enter the number of the table you wish to amend"));
@@ -249,8 +302,8 @@ public class AmendTablesGUI extends JFrame {
 
                     int amendChoiceAsInt = Integer.parseInt(amendChoice);
                     while(amendChoiceAsInt<1 || amendChoiceAsInt>5){
-                        amendChoice = JOptionPane.showInputDialog("The details of the Table you wish to amend are:\n\n" +
-                                TableToAmend + "\n\n1. Amend Name\n2. Amend Description" +
+                        amendChoice = JOptionPane.showInputDialog("Which details of the Table do you wish to amend :\n\n" +
+                                 "\n\n1. Amend Name\n2. Amend Description" +
                                 "\n3. Cancel Amendment\n\nInvalid choice entered!! Must be a value between 1 and 3 inclusive");
                         amendChoiceAsInt = Integer.parseInt(amendChoice);
                     }
@@ -281,6 +334,7 @@ public class AmendTablesGUI extends JFrame {
                         case "5":
                             break;
                     }
+                    allTables.add(TableToAmend);
                     JOptionPane.showMessageDialog(null,"Table details now amended!",
                             "Table Amended",JOptionPane.INFORMATION_MESSAGE);
                     foundTables.clear();

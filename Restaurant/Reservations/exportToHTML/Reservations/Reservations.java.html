@@ -1,0 +1,162 @@
+<html>
+<head>
+<title>Reservations.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6897bb;}
+.s3 { color: #808080;}
+.s4 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Reservations.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">Reservations</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.io.Serializable</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.Calendar</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.GregorianCalendar</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">Reservations </span><span class="s0">extends </span><span class="s1">AddResGUI </span><span class="s0">implements </span><span class="s1">Serializable {</span>
+    <span class="s0">private static int </span><span class="s1">resID</span><span class="s0">;</span>
+    <span class="s0">private int </span><span class="s1">people</span><span class="s0">;</span>
+    <span class="s0">private int </span><span class="s1">tableNo</span><span class="s0">;</span>
+    <span class="s0">private int </span><span class="s1">custID</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">GregorianCalendar date</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">String resStatus</span><span class="s0">;</span>
+    <span class="s0">private float </span><span class="s1">billAmount</span><span class="s0">;</span>
+
+    <span class="s0">public </span><span class="s1">Reservations(</span><span class="s0">int </span><span class="s1">resID</span><span class="s0">,int </span><span class="s1">custID</span><span class="s0">, int </span><span class="s1">tableNo</span><span class="s0">, int </span><span class="s1">people</span><span class="s0">, </span><span class="s1">GregorianCalendar date</span><span class="s0">, </span><span class="s1">String resStatus</span><span class="s0">, float </span><span class="s1">billAmount) {</span>
+        <span class="s1">setResID(resID)</span><span class="s0">;</span>
+        <span class="s1">setCustID(custID)</span><span class="s0">;</span>
+        <span class="s1">setPeople(people)</span><span class="s0">;</span>
+        <span class="s1">setDate(date)</span><span class="s0">;</span>
+        <span class="s1">setTableNo(tableNo)</span><span class="s0">;</span>
+        <span class="s1">setResStatus(resStatus)</span><span class="s0">;</span>
+        <span class="s1">setBillAmount(billAmount)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s0">void </span><span class="s1">setBillAmount(Float billAmount) {</span>
+        <span class="s1">totalRevenue(billAmount)</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.billAmount = billAmount</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">void </span><span class="s1">setResStatus(String resStatus) {</span>
+        <span class="s0">this</span><span class="s1">.resStatus = resStatus</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+
+    <span class="s0">public </span><span class="s1">String getResID() {</span>
+        <span class="s0">return </span><span class="s1">String.valueOf(resID)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public int </span><span class="s1">getTableNo() {</span>
+        <span class="s0">return </span><span class="s1">tableNo</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">setTableNo(</span><span class="s0">int </span><span class="s1">tableNo) {</span>
+        <span class="s0">this</span><span class="s1">.tableNo = tableNo</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">setResID(</span><span class="s0">int </span><span class="s1">resID) {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s2">30</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">resID = i</span><span class="s0">;</span>
+
+        <span class="s1">}</span>
+        <span class="s0">this</span><span class="s1">.resID = resID</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">String getPeople() {</span>
+        <span class="s0">return </span><span class="s1">String.valueOf(people)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">setPeople(</span><span class="s0">int </span><span class="s1">people) {</span>
+        <span class="s0">int </span><span class="s1">ppl =people</span><span class="s0">;</span>
+        <span class="s0">if </span><span class="s1">(people &gt;= </span><span class="s2">1 </span><span class="s1">&amp;&amp; people &lt;= </span><span class="s2">8</span><span class="s1">) {</span>
+            <span class="s0">this</span><span class="s1">.people = people</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">GregorianCalendar getDate() {</span>
+        <span class="s1">GregorianCalendar date = </span><span class="s0">this</span><span class="s1">.date</span><span class="s0">;</span>
+        <span class="s0">return </span><span class="s1">date</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">setCustID(</span><span class="s0">int </span><span class="s1">custID) {</span>
+        <span class="s0">this</span><span class="s1">.custID=custID</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public int </span><span class="s1">getCustID() {</span>
+        <span class="s0">return </span><span class="s1">custID</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">setDate(GregorianCalendar date) {</span>
+        <span class="s0">this</span><span class="s1">.date = date</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+
+    <span class="s3">/*public String getTime() { 
+        return time; 
+    } 
+ 
+    public void setTime(String time) { 
+        int timeAsInt = Integer.parseInt(time); 
+        if (!(!Character.isDigit(timeAsInt) || (((time.charAt(0)) &gt;= 1) || (time.charAt(0)) &lt;= 2) || (time.charAt(1)) &gt;= 1) 
+                || (time.charAt(1)) &gt;= 0 || ((time.charAt(3)) &gt;= 0) || (time.charAt(3)) &lt;= 5 || ((time.charAt(4)) &gt;= 0) || (time.charAt(1)) &lt;= 9) { 
+            timeAsInt = 1000; 
+ 
+        }*/</span>
+
+
+    <span class="s0">private </span><span class="s1">String getResStatus() {</span>
+    <span class="s0">return </span><span class="s1">resStatus</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s0">public </span><span class="s1">String getBillAmount() {</span>
+        <span class="s0">return </span><span class="s1">String.valueOf(billAmount)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s0">public static float </span><span class="s1">totalRevenue(</span><span class="s0">float </span><span class="s1">billAmount){</span>
+        <span class="s0">float </span><span class="s1">totalRev = </span><span class="s2">0</span><span class="s0">;</span>
+        <span class="s1">totalRev += billAmount</span><span class="s0">;</span>
+        <span class="s0">return </span><span class="s1">totalRev</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+
+
+    <span class="s0">public </span><span class="s1">String toString() {</span>
+        <span class="s1">String date</span><span class="s0">;</span>
+
+        <span class="s0">if</span><span class="s1">(getDate()==</span><span class="s0">null</span><span class="s1">)</span>
+            <span class="s1">date = </span><span class="s4">&quot;No date of birth specified&quot;</span><span class="s0">; </span><span class="s3">//this will never execute based on logic in EmployeeDetailsGUI but still good code</span>
+        <span class="s0">else </span><span class="s1">{</span>
+
+            <span class="s0">if </span><span class="s1">(</span><span class="s0">this</span><span class="s1">.date.get(Calendar.DATE) &lt; </span><span class="s2">10</span><span class="s1">)</span>
+                <span class="s1">date = </span><span class="s4">&quot;0&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.date.get(Calendar.DATE)</span><span class="s0">;</span>
+            <span class="s0">else</span>
+                <span class="s1">date = </span><span class="s4">&quot;&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.date.get(Calendar.DATE)</span><span class="s0">;</span>
+
+            <span class="s0">if </span><span class="s1">(</span><span class="s0">this</span><span class="s1">.date.get(Calendar.MONTH)+</span><span class="s2">1 </span><span class="s1">&lt; </span><span class="s2">10</span><span class="s1">)</span>
+                <span class="s1">date += </span><span class="s4">&quot;-0&quot; </span><span class="s1">+ (</span><span class="s0">this</span><span class="s1">.date.get(Calendar.MONTH)+</span><span class="s2">1</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s0">else</span>
+                <span class="s1">date += </span><span class="s4">&quot;-&quot; </span><span class="s1">+ (</span><span class="s0">this</span><span class="s1">.date.get(Calendar.MONTH)+</span><span class="s2">1</span><span class="s1">)</span><span class="s0">;</span>
+
+            <span class="s1">date += </span><span class="s4">&quot;-&quot; </span><span class="s1">+ </span><span class="s0">this</span><span class="s1">.date.get(Calendar.YEAR)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s4">&quot;</span><span class="s0">\n</span><span class="s4">Reservation id: &quot; </span><span class="s1">+ getResID() +</span>
+                <span class="s4">&quot;</span><span class="s0">\n</span><span class="s4">People: &quot; </span><span class="s1">+ getPeople() +</span>
+                <span class="s4">&quot;</span><span class="s0">\n</span><span class="s4">Date: &quot; </span><span class="s1">+ date +</span>
+                <span class="s4">&quot;</span><span class="s0">\n</span><span class="s4">Table no: &quot; </span><span class="s1">+ getTableNo() +</span>
+                <span class="s4">&quot;</span><span class="s0">\n</span><span class="s4">Reservation status: &quot; </span><span class="s1">+ getResStatus() +</span>
+                <span class="s4">&quot;</span><span class="s0">\n</span><span class="s4">Bill amount: &quot; </span><span class="s1">+ getBillAmount()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+
+<span class="s1">}</span>
+
+
+</pre>
+</body>
+</html>

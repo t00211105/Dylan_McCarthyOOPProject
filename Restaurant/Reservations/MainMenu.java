@@ -2,7 +2,6 @@ package Reservations;
 
 /*****************************************************
 
- *    Code from a fellow student   (include this comment for clarity)
  *    Title: MainMenu.java, lines 29
 
  *    Author: T0021105: Dylan McCarthy
@@ -12,10 +11,9 @@ package Reservations;
  *    Date: 4/12/2020
 
  *    Code version:  NA
+ *
  *    Availability:  NA
-
-
-
+ *
  *    Modified:  Code refactored (Identifiers renamed)
 
  *****************************************************/
@@ -36,6 +34,22 @@ public class MainMenu extends JFrame implements ActionListener {
     public MainMenu() {
 
         super("Restaurant Main Menu");
+        /*****************************************************
+
+         *    Title: AmendResGUI.java, lines 29-100
+
+         *    Author: T0021105: Dylan McCarthy
+
+         *    Site owner/sponsor:  John Brosnan lab 14 Menus
+
+         *    Date: 5/12/2020
+
+         *    Code version:  NA
+         *
+         *    Availability:  NA
+         *
+
+         *****************************************************/
 
         setLayout(new GridBagLayout());
 
@@ -50,10 +64,6 @@ public class MainMenu extends JFrame implements ActionListener {
         menuBar.add(ReservationsMenu);
         menuBar.add(CustomersMenu);
         ImageIcon icon = new ImageIcon("res.jpg");
-
-
-        response = new JLabel("Welcome to the System");
-        add(response);
 
         setSize(400, 200);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -93,8 +103,8 @@ public class MainMenu extends JFrame implements ActionListener {
         if(menuName.equals(("Amend Reservations"))) {
             AmendResGUI AmR = new AmendResGUI();
             }
-        if(menuName.equals(("Remove Reservations"))) {
-            RemoveResGUI AmR = new RemoveResGUI();
+        if(menuName.equals(("Cancel Reservations"))) {
+            RemoveResGUI RmR = new RemoveResGUI();
         }
         if(menuName.equals(("Pay Bill"))) {
             PBResGUI PBR = new PBResGUI();

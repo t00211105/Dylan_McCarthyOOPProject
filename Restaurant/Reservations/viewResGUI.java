@@ -8,6 +8,11 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.*;
 
+//ViewResGUI.java
+/*This java class is accessed through the MainMenu.java. It receives its objects constructors through its constructor class Reservations.java
+ *The system loads up a button that views all the objects in allRes arraylist and the user presses the button and Then the System displays all the details from the allRes ArrayList on a
+ * JOptionPane Dialog box.
+ */
 public class viewResGUI extends JFrame {
 
     private Insets normalInsets = new Insets(10, 10, 0, 10);

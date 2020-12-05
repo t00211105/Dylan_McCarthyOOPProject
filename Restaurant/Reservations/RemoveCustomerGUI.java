@@ -9,12 +9,15 @@ import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
+//RemoveCustomerGUI.java
+/*This java class is accessed through the MainMenu.java. It receives its objects constructors through its constructor class Customers.java
+ *This class asks the user to input custID and the system receives all the details from that specific custID then the system clarifies to the user are they sure about removing the object with a confirmation message.Then the System
+ * removes the details from the allCus ArrayList
+ */
 public class RemoveCustomerGUI extends JFrame {
 
     private final Insets normalInsets = new Insets(10, 10, 0, 10);
     private final Insets topInsets = new Insets(30, 10, 0, 10);
-    private JTextField custIDField;
 
 
     public RemoveCustomerGUI()  {
@@ -116,15 +119,6 @@ public class RemoveCustomerGUI extends JFrame {
 
         int gridy = 0;
 
-        JLabel custIDLabel = new JLabel("Customer ID: ");
-        addComponent(jpanel, custIDLabel, 0, gridy, 1, 1, topInsets,
-                GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
-
-        custIDField = new JTextField(25);
-        addComponent(jpanel, custIDField, 1, gridy++, 1, 1, topInsets,
-                GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
-
-
         return jpanel;
     }
 
@@ -148,16 +142,22 @@ public class RemoveCustomerGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    int ci = 0;
-                    String custId = custIDField.getText();
-                    if (custId != null && !custId.isEmpty()) {
-                        ci = Integer.parseInt(custId);
-                    }
-                    else {
-                        JOptionPane.showMessageDialog(null, "You did not enter a valid Customer ID", "Error!!", JOptionPane.ERROR_MESSAGE);
-                    }
+/*****************************************************
 
+ *    Title: RemoveCustomerGUI.java, lines 164-203
 
+ *    Author: T0021105: Dylan McCarthy
+
+ *    Site owner/sponsor:  John Brosnan lab 12/13/14
+
+ *    Date: 5/12/2020
+
+ *    Code version:  NA
+ *
+ *    Availability:  NA
+ *
+
+ *****************************************************/
                     Customers c1 = new Customers(1,"Dylan",112345678);
                     Customers c2 = new Customers(2,"Mary",1234567);
                     Customers c3 = new Customers(3,"Ryan",1233656);
@@ -184,6 +184,12 @@ public class RemoveCustomerGUI extends JFrame {
 
                     for (Customers rc: foundCustomers)
                         if(rc!=null && rc.getCustID()==searchID)
+                            CustomerToRemove =rc;
+                    for (Customers rc: foundCustomers)
+                        if(rc!=null && rc.getName().equals(searchID))
+                            CustomerToRemove =rc;
+                    for (Customers rc: foundCustomers)
+                        if(rc!=null && rc.getPhoneNo()==searchID)
                             CustomerToRemove =rc;
 
                     int removeChoice = JOptionPane.showConfirmDialog(null,"The details of the customer you wish to amend are:\n\n" +

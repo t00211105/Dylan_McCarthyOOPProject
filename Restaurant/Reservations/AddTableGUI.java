@@ -9,7 +9,11 @@ import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.io.*;
-
+//AddTableGUI.java
+/*This java class is accessed through the MainMenu.java. It receives its objects constructors through its constructor class Tables.java
+ *This class asks the user to input tableNo, tableSize and table status and all details are validated then the system clarifies to the user are they sure about it with a confirmation message.Then the System
+ * adds the details in the allTables ArrayList
+ */
 
 public class AddTableGUI extends JFrame {
 
@@ -175,18 +179,10 @@ public class AddTableGUI extends JFrame {
         btnAddTable.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
-                File TableFile = new File("Restaurant/tables.data");
-                ArrayList<Object> allTables = new ArrayList<Object>();
-                Tables t1 =new Tables(1,2,"High table","A");
-                Tables t2 =new Tables(2,2,"A table","D");
-                Tables t3 =new Tables(3,3,"Corner Table","U");
-                Tables t4 =new Tables(4,4,"Window Table","A");
-                Tables t5 =new Tables(5,1,"Balcony table","U");
-                Tables t6 =new Tables(6,6,"Low table","A");
-                Tables t7 =new Tables(7,5,"Circular table","A");
-                Tables t8 =new Tables(8,4,"High table","D");
-                Tables t9 =new Tables(9,4,"High table","U");
-                allTables.add(t1);
+                //File TableFile = new File("Restaurant/tables.data");
+                // ArrayList<Object> allTables = new ArrayList<Object>();
+
+                /*allTables.add(t1);
                 allTables.add(t2);
                 allTables.add(t3);
                 allTables.add(t4);
@@ -194,9 +190,9 @@ public class AddTableGUI extends JFrame {
                 allTables.add(t6);
                 allTables.add(t7);
                 allTables.add(t8);
-                allTables.add(t9);
+                allTables.add(t9);*/
 
-                try {
+                try {/*
                     FileOutputStream tblStream = new FileOutputStream(TableFile);
 
                     ObjectOutputStream tblOtStream = new ObjectOutputStream(tblStream);
@@ -214,13 +210,15 @@ public class AddTableGUI extends JFrame {
                 catch(IOException ioe){
                     System.out.println(ioe.getStackTrace());
                     JOptionPane.showMessageDialog(null,"File could not be written!",
-                            "Problem Writing to File!",JOptionPane.ERROR_MESSAGE);
+                            "Problem Writing to File!",JOptionPane.ERROR_MESSAGE);*/
+                } catch (Exception exception) {
+                    exception.printStackTrace();
                 }
 
 
-                File inFile	= new File("Restaurant/tables.data");
+                //File inFile	= new File("Restaurant/tables.data");
 
-                try {
+                /*try {
                     FileInputStream inStream = new FileInputStream(inFile);
 
                     ObjectInputStream objectInStream = new ObjectInputStream(inStream);
@@ -228,81 +226,83 @@ public class AddTableGUI extends JFrame {
                     objectInStream.close();
                     inStream.close();
                 }
-                catch(FileNotFoundException fnfe){
+                /*catch(FileNotFoundException fnfe){
                     fnfe.printStackTrace();
                     JOptionPane.showMessageDialog(null,"File could not be found!",
                             "Problem Finding File!",JOptionPane.ERROR_MESSAGE);
                 } catch (IOException ioException) {
                     System.out.println("ioException is caught");
-                    ioException.printStackTrace();
+                    ioException.printStackTrace();*/
 
 
+                try {
+                    int tN = 0;
+                    String tableNo = tableNoField.getText();
+                    if (tableNo != null && !tableNo.isEmpty()) {
+                        tN = Integer.parseInt(tableNo);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "You did not enter a valid table number", "Error!!", JOptionPane.ERROR_MESSAGE);
 
-                    try {
-                        int tN = 0;
-                        String tableNo = tableNoField.getText();
-                        if (tableNo != null && !tableNo.isEmpty()) {
-                            tN = Integer.parseInt(tableNo);
-                        }
-                        else
-                        {
-                            JOptionPane.showMessageDialog(null,"You did not enter a valid table number","Error!!",JOptionPane.ERROR_MESSAGE);
-
-                        }
-                        int tS = 0;
-                        String tableSt = tableSizeField.getText();
-                        if (tableSt != null && !tableSt.isEmpty()) {
-                            tS = Integer.parseInt(tableSt);
-                        }
-                        else
-                        {
-                            JOptionPane.showMessageDialog(null,"You did not enter a valid table size","Error!!",JOptionPane.ERROR_MESSAGE);
-
-                        }
-
-                        String status = StatusField.getText();
-                        if (status != null && !status.isEmpty()) {
-
-                        }
-                        else
-                        {
-                            JOptionPane.showMessageDialog(null,"You did not enter a valid table staus","Error!!",JOptionPane.ERROR_MESSAGE);
-                        }
-
-                        String desc = descriptionField.getText();
-                        if (desc != null && !desc.isEmpty()) {
-
-                        }
-                        else
-                        {
-                         JOptionPane.showMessageDialog(null,"You did not enter a valid table description","Error!!",JOptionPane.ERROR_MESSAGE);
-                        }
-                        Tables tn = new Tables(tN,tS,desc,status);
-                        allTables.add(tn);
-
-
-                        JOptionPane.showMessageDialog(null, "Table details added\n\nDetails are:  " + tn, "Table Is Added", JOptionPane.INFORMATION_MESSAGE);
-                    } catch (NumberFormatException nfe) {
-                         } catch (IllegalArgumentException iae) {
-                        if(iae.getMessage().contains("0"))
-                            JOptionPane.showMessageDialog(null, iae.getMessage(), "Invalid Reservation ID", JOptionPane.ERROR_MESSAGE);
-                        else if(iae.getMessage().contains("custID"))
-                            JOptionPane.showMessageDialog(null, iae.getMessage(), "Invalid Customer ID", JOptionPane.ERROR_MESSAGE);
-                        else if(iae.getMessage().contains("people"))
-                            JOptionPane.showMessageDialog(null, iae.getMessage(), "Invalid People Amount: ", JOptionPane.ERROR_MESSAGE);
-                        else if(iae.getMessage().contains("mdcemekc"))
-                            JOptionPane.showMessageDialog(null, iae.getMessage(), "Invalid People Amount: ", JOptionPane.ERROR_MESSAGE);
-
-                        else
-                            JOptionPane.showMessageDialog(null, "The Date of Reservation must have day and month values that must be valid", "Invalid Date", JOptionPane.ERROR_MESSAGE);
+                    }
+                    int tS = 0;
+                    String tableSt = tableSizeField.getText();
+                    if (tableSt != null && !tableSt.isEmpty()) {
+                        tS = Integer.parseInt(tableSt);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "You did not enter a valid table size", "Error!!", JOptionPane.ERROR_MESSAGE);
 
                     }
 
+                    String status = StatusField.getText();
+                    if (status != null && !status.isEmpty()) {
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "You did not enter a valid table staus", "Error!!", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                    String desc = descriptionField.getText();
+                    if (desc != null && !desc.isEmpty()) {
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "You did not enter a valid table description", "Error!!", JOptionPane.ERROR_MESSAGE);
+                    }
+                    Tables t1 = new Tables(1, 2, "High table", "A");
+                    Tables t2 = new Tables(2, 2, "A table", "D");
+                    Tables t3 = new Tables(3, 3, "Corner Table", "U");
+                    Tables t4 = new Tables(4, 4, "Window Table", "A");
+                    Tables t5 = new Tables(5, 1, "Balcony table", "U");
+                    Tables t6 = new Tables(6, 6, "Low table", "A");
+                    Tables t7 = new Tables(7, 5, "Circular table", "A");
+                    Tables t8 = new Tables(8, 4, "High table", "D");
+                    Tables t9 = new Tables(9, 4, "High table", "U");
+                    ArrayList<Tables> allTables = new ArrayList<Tables>(Arrays.asList(t1, t2, t3, t4, t5, t6, t7, t8, t9));
+                    Tables tn = new Tables(tN, tS, desc, status);
+                    allTables.add(tn);
+
+
+                    JOptionPane.showMessageDialog(null, "Table details added\n\nDetails are:  " + tn, "Table Is Added", JOptionPane.INFORMATION_MESSAGE);
+                } catch (NumberFormatException nfe) {
+                } catch (IllegalArgumentException iae) {
+                    if (iae.getMessage().contains("0"))
+                        JOptionPane.showMessageDialog(null, iae.getMessage(), "Invalid Reservation ID", JOptionPane.ERROR_MESSAGE);
+                    else if (iae.getMessage().contains("custID"))
+                        JOptionPane.showMessageDialog(null, iae.getMessage(), "Invalid Customer ID", JOptionPane.ERROR_MESSAGE);
+                    else if (iae.getMessage().contains("people"))
+                        JOptionPane.showMessageDialog(null, iae.getMessage(), "Invalid People Amount: ", JOptionPane.ERROR_MESSAGE);
+                    else if (iae.getMessage().contains("mdcemekc"))
+                        JOptionPane.showMessageDialog(null, iae.getMessage(), "Invalid People Amount: ", JOptionPane.ERROR_MESSAGE);
+
+                    else
+                        JOptionPane.showMessageDialog(null, "The Date of Reservation must have day and month values that must be valid", "Invalid Date", JOptionPane.ERROR_MESSAGE);
+
                 }
-            }});
+                }
+
+                });
 
         jpanel.add(btnAddTable);
 
         return jpanel;
     }
 }
+

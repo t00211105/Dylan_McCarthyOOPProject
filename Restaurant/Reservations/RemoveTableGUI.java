@@ -9,7 +9,11 @@ import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
+//RemoveTableGUI.java
+/*This java class is accessed through the MainMenu.java. It receives its objects constructors through its constructor class Tables.java
+ *This class asks the user to input TableNo and the system receives all the details from that specific tableNo then the system clarifies to the user are they sure about removing the object with a confirmation message.Then the System
+ * removes the details from the allTables ArrayList
+ */
 public class RemoveTableGUI extends JFrame {
 
     private final Insets normalInsets = new Insets(10, 10, 0, 10);
@@ -20,7 +24,22 @@ public class RemoveTableGUI extends JFrame {
     public RemoveTableGUI()  {
 
         super("Remove Table");
+/*****************************************************
 
+ *    Title: RemoveTableGUI.java, lines 40-55
+
+ *    Author: T0021105: Dylan McCarthy
+
+ *    Site owner/sponsor:  John Brosnan lab 12
+
+ *    Date: 5/12/2020
+
+ *    Code version:  NA
+ *
+ *    Availability:  NA
+ *
+
+ *****************************************************/
 
         JPanel jpanel = new JPanel();
         jpanel.setLayout(new BoxLayout(jpanel, BoxLayout.Y_AXIS));
@@ -38,8 +57,27 @@ public class RemoveTableGUI extends JFrame {
         setSize(500,500);
         setVisible(true);
         setResizable(false);
+        /*****************************************************
+
+         *    Title: RemoveTableGUI.java, lines 72-77
+
+         *    Author: T0021105: Dylan McCarthy
+
+         *    Site owner/sponsor:  John Brosnan
+
+         *    Date: 5/12/2020
+
+         *    Code version:  NA
+         *
+         *    Availability:  NA
+         *
+
+         *****************************************************/
         setIconImage(new ImageIcon("res1.jpg").getImage());
 
+    }
+    public void setIconImage(String s){
+        return;
     }
 
     public static void main(String args[]){

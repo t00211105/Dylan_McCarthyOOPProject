@@ -9,7 +9,11 @@ import java.awt.event.WindowListener;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-
+//AddCustomerGUI.java
+/*This java class is accessed through the MainMenu.java. It receives its objects constructors through its constructor class Customers.java
+ *This class asks the user to input custID, name and phone number and all details are validated then the system clarifies to the user are they sure about it with a confirmation message.Then the System
+ * adds the details in the allCus ArrayList
+ */
 
 public class AddCustomerGUI extends JFrame {
 
@@ -169,65 +173,58 @@ public class AddCustomerGUI extends JFrame {
         btnAddCustomer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                 try {
-                     File outfile = new File("Restaurant/customerData");
+                try {
+                    File outfile = new File("Restaurant/customerData");
 
-                     try
-                    {
-                        FileOutputStream Cus = new FileOutputStream(outfile);
-                       Customers c1 = new Customers(1,"Dylan",112345678);
-                        Customers c2 = new Customers(2,"Mary",1234567);
-                        Customers c3 = new Customers(3,"Raymond",1233656);
-                        Customers c4 = new Customers(4,"Tyler",12345432);
-                        Customers c5 = new Customers(5,"Evan",1239944);
-                        Customers c6 = new Customers(6,"Kyle",1874318);
+                     /* FileOutputStream Cus = new FileOutputStream(outfile);
+                     Customers c1 = new Customers(1,"Dylan",112345678);
+                      Customers c2 = new Customers(2,"Mary",1234567);
+                      Customers c3 = new Customers(3,"Raymond",1233656);
+                      Customers c4 = new Customers(4,"Tyler",12345432);
+                      Customers c5 = new Customers(5,"Evan",1239944);
+                      Customers c6 = new Customers(6,"Kyle",1874318);
 
-                        ArrayList<Customers> allCus = new ArrayList<Customers>(Arrays.asList(c1,c2,c3,c4,c5,c6));
-                        ObjectOutputStream CusOos = new ObjectOutputStream(Cus);
+                      ArrayList<Customers> allCus = new ArrayList<Customers>(Arrays.asList(c1,c2,c3,c4,c5,c6));
+                      ObjectOutputStream CusOos = new ObjectOutputStream(Cus);
 
-                        CusOos.writeObject(allCus);
+                      CusOos.writeObject(allCus);
 
-                        CusOos.close();
+                      CusOos.close();
 
-                    } catch(FileNotFoundException fnfe){
-                         System.out.println(fnfe.getStackTrace());
-                         JOptionPane.showMessageDialog(null,"File could not be found!",
-                                 "Problem Finding File!",JOptionPane.ERROR_MESSAGE);
+                  } catch(FileNotFoundException fnfe){
+                       System.out.println(fnfe.getStackTrace());
+                       JOptionPane.showMessageDialog(null,"File could not be found!",
+                               "Problem Finding File!",JOptionPane.ERROR_MESSAGE);*/
 
-                     } catch (IOException ioe)
-                    {
-                        ioe.printStackTrace();
-                    }
-                     File inFile = new File("Restaurant/customerData");
-                     try {
-                         FileInputStream inStream = new FileInputStream(inFile);
+                    //File inFile = new File("Restaurant/customerData");
+                    try {
+                        //  FileInputStream inStream = new FileInputStream(inFile);
 
-                         ObjectInputStream objectInStream = new ObjectInputStream(inStream);
+                        //ObjectInputStream objectInStream = new ObjectInputStream(inStream);
 
-                         Customers c1 = (Customers) objectInStream.readObject();
+                     /*  Customers c1 = (Customers) objectInStream.readObject();
                          Customers c2 = (Customers) objectInStream.readObject();
                          Customers c3 = (Customers) objectInStream.readObject();
                          Customers c4 = (Customers) objectInStream.readObject();
                          Customers c5 = (Customers) objectInStream.readObject();
                          Customers c6 = (Customers) objectInStream.readObject();
                          Customers c7 = (Customers) objectInStream.readObject();
-                         Customers c8 = (Customers) objectInStream.readObject();
+                         Customers c8 = (Customers) objectInStream.readObject();*/
 
+                        //ArrayList<Customers> custObj = (ArrayList<Customers>) objectInStream.readObject();
 
-                         ArrayList<Customers> custObj = (ArrayList<Customers>) objectInStream.readObject();
+                        //String custMix = "";
 
-                         String custMix = "";
+                        //for (Customers cs : custObj)
+                        //  custMix += cs + "\n";
 
-                         for (Customers cs : custObj)
-                             custMix += cs + "\n";
-
-                         inStream.close();
-                     }
-                     catch(FileNotFoundException fnfe){
-                         fnfe.printStackTrace();
-                         JOptionPane.showMessageDialog(null,"File could not be found!",
-                                 "Problem Finding File!",JOptionPane.ERROR_MESSAGE);
-                     }
+                        //inStream.close();
+                        //  }
+                        // catch(FileNotFoundException fnfe){
+                        //   fnfe.printStackTrace();
+                        // JOptionPane.showMessageDialog(null,"File could not be found!",
+                        //       "Problem Finding File!",JOptionPane.ERROR_MESSAGE);
+                   /*  }
                      catch(IOException ioe){
                          ioe.printStackTrace();
                          JOptionPane.showMessageDialog(null,"File could not be read","problem writing to file",JOptionPane.ERROR_MESSAGE);
@@ -242,51 +239,51 @@ public class AddCustomerGUI extends JFrame {
                      catch (ClassCastException cce) {
                          cce.printStackTrace();
                          JOptionPane.showMessageDialog(null,"Could not convert the object to the appropriate class!","Problem Converting Object!",JOptionPane.ERROR_MESSAGE);
-                     }
+                     }*/
 
-                     int ci = 0;
-                    String custId = custIDField.getText();
-                    if (custId != null && !custId.isEmpty()) {
-                        ci = Integer.parseInt(custId);
-                    }
-                    else {
-                        JOptionPane.showMessageDialog(null, "You did not enter a valid Customer ID", "Error!!", JOptionPane.ERROR_MESSAGE);
-                    }
-                    int nm = 0;
-                    String name = nameField.getText();
-                    if (name!= null && !name.isEmpty()) {
-                        nm = Integer.parseInt(name);
-                    }
-                    else {
+                        int ci = 0;
+                        String custId = custIDField.getText();
+                        if (custId != null && !custId.isEmpty()) {
+                            ci = Integer.parseInt(custId);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "You did not enter a valid Customer ID", "Error!!", JOptionPane.ERROR_MESSAGE);
+                        }
+                        int nm = 0;
+                        String name = nameField.getText();
+                        if (name != null && !name.isEmpty()) {
 
-                        JOptionPane.showMessageDialog(null, "You did not enter a valid name", "Error!!", JOptionPane.ERROR_MESSAGE);
-                    }
-                    long phnNum=0;
-                    String phn = phoneNoField.getText();
-                    if (phn!= null && !phn.isEmpty()) {
-                        phnNum = Long.parseLong(phn);
-                    }
-                    else {
-                        JOptionPane.showMessageDialog(null, "You did not enter a valid phone number", "Error!!", JOptionPane.ERROR_MESSAGE);
+                        } else {
+
+                            JOptionPane.showMessageDialog(null, "You did not enter a valid name", "Error!!", JOptionPane.ERROR_MESSAGE);
+                        }
+                        long phnNum = 0;
+                        String phn = phoneNoField.getText();
+                        if (phn != null && !phn.isEmpty()) {
+                            phnNum = Long.parseLong(phn);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "You did not enter a valid phone number", "Error!!", JOptionPane.ERROR_MESSAGE);
+                        }
+                        Customers c1 = new Customers(1, "Dylan", 112345678);
+                        Customers c2 = new Customers(2, "Mary", 1234567);
+                        Customers c3 = new Customers(3, "Raymond", 1233656);
+                        Customers c4 = new Customers(4, "Tyler", 12345432);
+                        Customers c5 = new Customers(5, "Evan", 1239944);
+                        Customers c6 = new Customers(6, "Kyle", 1874318);
+
+                        Customers c = new Customers(ci, name, phnNum);
+                        ArrayList<Customers> allCus = new ArrayList<Customers>(Arrays.asList(c1,c2,c3,c4,c5,c6));
+                        allCus.add(c);
+                        JOptionPane.showMessageDialog(null,"Table Details are added to the table file","Table Added",JOptionPane.INFORMATION_MESSAGE);
+
+                    } catch (NumberFormatException nfe) {
+                            nfe.printStackTrace();
                     }
 
-                    Customers c = new Customers(ci, name,phnNum);
-                    ArrayList<Customers>allCus= new ArrayList<Customers>();
-                    allCus.add(c);
 
-                    JOptionPane.showMessageDialog(null, "Customer details added\n\nDetails are:  " + c, "Customer Is Added", JOptionPane.INFORMATION_MESSAGE);
-
-                } catch (NumberFormatException nfe) {
-                } catch (IllegalArgumentException iae) {
-                    if (iae.getMessage().contains("0"))
-                        JOptionPane.showMessageDialog(null, iae.getMessage(), "Invalid Customer Id!", JOptionPane.ERROR_MESSAGE);
-                    else if (iae.getMessage().contains(""))
-                        JOptionPane.showMessageDialog( null, iae.getMessage(), "Invalid Name!", JOptionPane.ERROR_MESSAGE);
-                    else {
-                        JOptionPane.showMessageDialog(null, iae.getMessage(), "Invalid Phone Number! ", JOptionPane.ERROR_MESSAGE);
-
-                    }
+                } catch (HeadlessException headlessException) {
+                    headlessException.printStackTrace();
                 }
+
             } });
 
         jpanel.add(btnAddCustomer);

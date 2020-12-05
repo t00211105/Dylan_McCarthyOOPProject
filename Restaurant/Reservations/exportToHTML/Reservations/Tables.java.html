@@ -1,0 +1,76 @@
+<html>
+<head>
+<title>Tables.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6897bb;}
+.s3 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Tables.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">Reservations</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.io.Serializable</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">Tables </span><span class="s0">implements </span><span class="s1">Serializable {</span>
+    <span class="s0">private int </span><span class="s1">tableNo</span><span class="s0">;</span>
+    <span class="s0">private int </span><span class="s1">tableSize</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">String description</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">String status</span><span class="s0">;</span>
+
+    <span class="s0">public </span><span class="s1">Tables(</span><span class="s0">int </span><span class="s1">tableNo</span><span class="s0">,int </span><span class="s1">tableSize</span><span class="s0">,</span><span class="s1">String description</span><span class="s0">,</span><span class="s1">String status){</span>
+        <span class="s1">setTableNo(tableNo)</span><span class="s0">;</span>
+        <span class="s1">setTableSize(tableSize)</span><span class="s0">;</span>
+        <span class="s1">setDescription(description)</span><span class="s0">;</span>
+        <span class="s1">setStatus(status)</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+
+    <span class="s0">public int </span><span class="s1">getTableNo() {</span>
+        <span class="s0">return </span><span class="s1">tableNo</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">setTableNo(</span><span class="s0">int </span><span class="s1">tableNo) {</span>
+        <span class="s0">if </span><span class="s1">(tableNo&gt;</span><span class="s2">0</span><span class="s1">&amp;&amp;tableNo&lt;</span><span class="s2">30</span><span class="s1">)</span>
+            <span class="s0">this</span><span class="s1">.tableNo = tableNo</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public int </span><span class="s1">getTableSize() {</span>
+        <span class="s0">return </span><span class="s1">tableSize</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">setTableSize(</span><span class="s0">int </span><span class="s1">tableSize) {</span>
+        <span class="s0">this</span><span class="s1">.tableSize = tableSize</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">String getDescription() {</span>
+        <span class="s0">return </span><span class="s1">description</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">setDescription(String description) {</span>
+        <span class="s0">this</span><span class="s1">.description = description</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">String getStatus() {</span>
+        <span class="s0">return </span><span class="s1">status</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">setStatus(String status) {</span>
+        <span class="s0">this</span><span class="s1">.status = status</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s0">public </span><span class="s1">String toString() {</span>
+        <span class="s0">return</span><span class="s3">&quot;Table no: &quot; </span><span class="s1">+ getTableNo() + </span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">Table size: &quot; </span><span class="s1">+  getTableSize()+</span>
+                <span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">Table description: &quot; </span><span class="s1">+ getDescription()+</span>
+                <span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">Tablestatus: &quot; </span><span class="s1">+getStatus()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

@@ -10,7 +10,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 
-
+//ViewTableGUI.java
+/*This java class is accessed through the MainMenu.java. It receives its objects constructors through its constructor class tables.java
+ *The system loads up a button that views all the objects in allTables arraylist and the user presses the button and Then the System displays all the details from the allTables ArrayList on a
+ * JOptionPane Dialog box.
+ */
 public class ViewTableGUI extends JFrame {
 
     private Insets normalInsets = new Insets(10, 10, 0, 10);

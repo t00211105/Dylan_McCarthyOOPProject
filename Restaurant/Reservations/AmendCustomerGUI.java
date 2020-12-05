@@ -13,6 +13,11 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+//AmendCustomerGUI.java
+/*This java class is accessed through the MainMenu.java. It receives its objects constructors through its constructor class Customers.java
+ *This class asks the user to input custID, name and phone number and all details are validated then the system clarifies to the user are they sure about it twice with a confirmation message.Then the System
+ * chooses the details they want to update details within a switch statement and saves the new details in the allCus ArrayList
+ */
 
 public class AmendCustomerGUI extends JFrame {
 
@@ -164,16 +169,15 @@ public class AmendCustomerGUI extends JFrame {
         btnAmendCustomer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ArrayList<Customers>allCus= new ArrayList<Customers>();
 
                 try {
-                    FileInputStream CusFis = new FileInputStream("Restaurant/CustomerData");
-                    ObjectInputStream CusOis = new ObjectInputStream(CusFis);
+                    //FileInputStream CusFis = new FileInputStream("Restaurant/CustomerData");
+                    //ObjectInputStream CusOis = new ObjectInputStream(CusFis);
 
-                    allCus = (ArrayList)CusOis.readObject();
+                //    allCus = (ArrayList)CusOis.readObject();
 
-                    CusOis.close();
-                    CusFis.close();
+                  //  CusOis.close();
+                    //CusFis.close();
                     int ci = 0;
                     String custId = custIDField.getText();
                     if (custId != null && !custId.isEmpty()) {
@@ -199,20 +203,41 @@ public class AmendCustomerGUI extends JFrame {
                     else
                         JOptionPane.showMessageDialog(null, "You did not enter a valid phone number", "Error!!", JOptionPane.ERROR_MESSAGE);
 
-                   /* Customers c1 = new Customers(1,"Dylan",112345678);
+
+
+
+
+                //} catch (IOException ioException) {
+                  //  ioException.printStackTrace();
+                //} catch (ClassNotFoundException classNotFoundException) {
+                  //  classNotFoundException.printStackTrace();
+/*****************************************************
+
+ *    Title: AmendCustomerGUI.java, lines 232-305
+
+ *    Author: T0021105: Dylan McCarthy
+
+ *    Site owner/sponsor:  John Brosnan lab 12
+
+ *    Date: 5/12/2020
+
+ *    Code version:  NA
+ *
+ *    Availability:  NA
+ *
+
+ *****************************************************/
+                    Customers c1 = new Customers(1,"Dylan",112345678);
                     Customers c2 = new Customers(2,"Mary",1234567);
                     Customers c3 = new Customers(3,"Raymond",1233656);
                     Customers c4 = new Customers(4,"Tyler",12345432);
                     Customers c5 = new Customers(5,"Evan",1239944);
-                    Customers c6 = new Customers(6,"Kyle",1874318);*/
+                    Customers c6 = new Customers(6,"Kyle",1874318);
 
+                    ArrayList<Customers>allCus= new ArrayList<Customers>(Arrays.asList(c1,c2,c3,c4,c5,c6));
 
-
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                } catch (ClassNotFoundException classNotFoundException) {
-                    classNotFoundException.printStackTrace();
                     int searchKey = Integer.parseInt(JOptionPane.showInputDialog("Please enter the Customer ID you wish to amend"));
+
                     ArrayList<Customers> foundCustomers = new ArrayList<Customers>();
 
                     for (Customers Ac : allCus)
@@ -232,6 +257,12 @@ public class AmendCustomerGUI extends JFrame {
                     for (Customers Ac : foundCustomers)
                         if (Ac != null && Ac.getCustID() == searchID)
                             CustomerToAmend = Ac;
+                    for (Customers Ac : foundCustomers)
+                    if (Ac != null && Ac.getName().equals(searchID))
+                        CustomerToAmend = Ac;
+                    for (Customers Ac : foundCustomers)
+                    if (Ac != null && Ac.getPhoneNo() == searchID)
+                        CustomerToAmend = Ac;
 
                     String amendChoice = JOptionPane.showInputDialog("The details of the customer you wish to amend are:\n\n" + CustomerToAmend + "\n\n1. Amend Customer ID\n2. Amend Customers Name" +
                             "\n3. Amend Customer Phone Number\n4. Exit Application\n\nPlease enter your choice");
@@ -249,19 +280,32 @@ public class AmendCustomerGUI extends JFrame {
                         case "1":
                             String newCustIdAsString = JOptionPane.showInputDialog("Please enter the new Customer Id for the Customers:");
                             int newCustId= Integer.parseInt(newCustIdAsString);
-                            CustomerToAmend.setCustID(newCustId);
+                            if (newCustId!=0) {
+                                CustomerToAmend.setCustID(newCustId);
+                            }
+                            else
                             break;
                         case "2":
                             String newName = JOptionPane.showInputDialog("Please enter the new name for the Customers:");
-                            CustomerToAmend.setName(newName);
+                            if(newName!=null) {
+                                CustomerToAmend.setName(newName);
+                            }
+                            else
                             break;
+
                         case "3":
                             String newPhnNoAsstring = JOptionPane.showInputDialog("Please enter the new phone number for the Customers:");
                             long newPhnNo=Long.parseLong(newPhnNoAsstring);
-                            CustomerToAmend.setPhoneNo(newPhnNo);
+                            if (newPhnNo!=0) {
+                                CustomerToAmend.setPhoneNo(newPhnNo);
+                            }
+                            else
                             break;
                         case "4":
                             break;
+                    }
+                    if (CustomerToAmend==null){
+                        JOptionPane.showMessageDialog(null,"The details amended are not entered","Details are not entered",JOptionPane.INFORMATION_MESSAGE);
                     }
                     allCus.add(CustomerToAmend);
 

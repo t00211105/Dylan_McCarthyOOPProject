@@ -10,7 +10,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 
-
+//ViewCustomerGUI.java
+/*This java class is accessed through the MainMenu.java. It receives its objects constructors through its constructor class Customers.java
+ *The system loads up a button that views all the objects in customers and the user presses the button and Then the System displays all the details from the allCus ArrayList on a
+ * JOptionPane Dialog box.
+ */
 public class ViewCustomerGUI extends JFrame {
 
     private Insets normalInsets = new Insets(10, 10, 0, 10);

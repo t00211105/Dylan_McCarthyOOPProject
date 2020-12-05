@@ -1,0 +1,476 @@
+<html>
+<head>
+<title>AmendResGUI.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6897bb;}
+.s3 { color: #6a8759;}
+.s4 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+AmendResGUI.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">Reservations</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">javax.swing.*</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.awt.*</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.awt.event.ActionEvent</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.awt.event.ActionListener</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.awt.event.WindowEvent</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.awt.event.WindowListener</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.ArrayList</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.Arrays</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.Calendar</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.GregorianCalendar</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">AmendResGUI </span><span class="s0">extends </span><span class="s1">JFrame {</span>
+
+    <span class="s0">private </span><span class="s1">Insets normalInsets = </span><span class="s0">new </span><span class="s1">Insets(</span><span class="s2">10</span><span class="s0">, </span><span class="s2">10</span><span class="s0">, </span><span class="s2">0</span><span class="s0">, </span><span class="s2">10</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Insets topInsets = </span><span class="s0">new </span><span class="s1">Insets(</span><span class="s2">30</span><span class="s0">, </span><span class="s2">10</span><span class="s0">, </span><span class="s2">0</span><span class="s0">, </span><span class="s2">10</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">JTextField resIDField</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">JTextField tableNoField</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">JTextField custIDField</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">JTextField peopleField</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">JTextField dateField</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">JTextField resStatusField</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">JTextField billAmountField</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">GregorianCalendar dateChosen</span><span class="s0">;</span>
+
+    <span class="s0">public </span><span class="s1">AmendResGUI()  {</span>
+
+        <span class="s0">super</span><span class="s1">(</span><span class="s3">&quot;Amend Reservation&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s1">JPanel jpanel = </span><span class="s0">new </span><span class="s1">JPanel()</span><span class="s0">;</span>
+        <span class="s1">jpanel.setLayout(</span><span class="s0">new </span><span class="s1">BoxLayout(jpanel</span><span class="s0">, </span><span class="s1">BoxLayout.Y_AXIS))</span><span class="s0">;</span>
+
+        <span class="s1">jpanel.add(Box.createVerticalStrut(</span><span class="s2">50</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">jpanel.add(createTitlePanel())</span><span class="s0">;</span>
+        <span class="s1">jpanel.add(createDetailsPanel())</span><span class="s0">;</span>
+        <span class="s1">jpanel.add(Box.createVerticalStrut(</span><span class="s2">40</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">jpanel.add(createSubmitPanel())</span><span class="s0">;</span>
+        <span class="s1">jpanel.add(Box.createVerticalStrut(</span><span class="s2">20</span><span class="s1">))</span><span class="s0">;</span>
+
+        <span class="s1">add(jpanel)</span><span class="s0">;</span>
+
+        <span class="s1">setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)</span><span class="s0">;</span>
+        <span class="s1">setSize(</span><span class="s2">500</span><span class="s0">,</span><span class="s2">500</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">setVisible(</span><span class="s0">true</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">setResizable(</span><span class="s0">false</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">setIconImage(</span><span class="s0">new </span><span class="s1">ImageIcon(</span><span class="s3">&quot;res1.jpg&quot;</span><span class="s1">).getImage())</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+
+    <span class="s0">public static void </span><span class="s1">main(String args[]){</span>
+
+        <span class="s1">Object AmendRes =</span><span class="s0">new </span><span class="s1">AmendResGUI()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s0">private class </span><span class="s1">WindowEventHandler </span><span class="s0">implements </span><span class="s1">WindowListener {</span>
+
+        <span class="s0">public void </span><span class="s1">windowOpened(WindowEvent e) {</span>
+            <span class="s1">JOptionPane.showMessageDialog(</span><span class="s0">null, </span><span class="s3">&quot;Amend Reservation Window now opened&quot;</span><span class="s0">, </span><span class="s3">&quot;Amend Reservation Window Opened&quot;</span><span class="s0">,</span>
+                    <span class="s1">JOptionPane.INFORMATION_MESSAGE)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">public void </span><span class="s1">windowClosing(WindowEvent e) {</span>
+            <span class="s1">JOptionPane.showMessageDialog(</span><span class="s0">null, </span><span class="s3">&quot;Now closing window&quot;</span><span class="s0">, </span><span class="s3">&quot;Closing Amend Reservation Window&quot;</span><span class="s0">,</span>
+                    <span class="s1">JOptionPane.INFORMATION_MESSAGE)</span><span class="s0">;</span>
+            <span class="s0">int </span><span class="s1">choice = JOptionPane.showConfirmDialog(</span><span class="s0">null, </span><span class="s3">&quot;Are you sure you want to exit this application?&quot;</span><span class="s0">, </span><span class="s3">&quot;Exiting Application Confirmation&quot;</span><span class="s0">,</span>
+                    <span class="s1">JOptionPane.YES_NO_CANCEL_OPTION)</span><span class="s0">;</span>
+
+            <span class="s0">if </span><span class="s1">(choice == JOptionPane.YES_OPTION)</span>
+                <span class="s1">dispose()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">@Override</span>
+        <span class="s0">public void </span><span class="s1">windowClosed(WindowEvent e) {</span>
+            <span class="s1">JOptionPane.showMessageDialog(</span><span class="s0">null, </span><span class="s3">&quot;Amend Reservation Window Closed&quot;</span><span class="s0">, </span><span class="s3">&quot;Amend Customer Window Closed&quot;</span><span class="s0">,</span>
+                    <span class="s1">JOptionPane.INFORMATION_MESSAGE)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">@Override</span>
+        <span class="s0">public void </span><span class="s1">windowIconified(WindowEvent e) {</span>
+            <span class="s1">JOptionPane.showMessageDialog(</span><span class="s0">null, </span><span class="s3">&quot;Amend Reservation Window Minimised&quot;</span><span class="s0">, </span><span class="s3">&quot;Amend Customer Window Minimised&quot;</span><span class="s0">,</span>
+                    <span class="s1">JOptionPane.INFORMATION_MESSAGE)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">@Override</span>
+        <span class="s0">public void </span><span class="s1">windowDeiconified(WindowEvent e) {</span>
+            <span class="s1">JOptionPane.showMessageDialog(</span><span class="s0">null, </span><span class="s3">&quot;Amend Reservation Window Unminimised&quot;</span><span class="s0">, </span><span class="s3">&quot;Amend Reservation Window Unminimised&quot;</span><span class="s0">,</span>
+                    <span class="s1">JOptionPane.INFORMATION_MESSAGE)</span><span class="s0">;</span>
+
+            <span class="s1">MainMenu mnu = </span><span class="s0">new </span><span class="s1">MainMenu()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">@Override</span>
+        <span class="s0">public void </span><span class="s1">windowActivated(WindowEvent e) {</span>
+            <span class="s1">System.out.println(</span><span class="s3">&quot;Amend Reservation Window Activated&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">@Override</span>
+        <span class="s0">public void </span><span class="s1">windowDeactivated(WindowEvent e) {</span>
+            <span class="s1">System.out.println(</span><span class="s3">&quot;Amend Reservation Window Deactivated&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+
+    <span class="s0">private </span><span class="s1">JPanel createTitlePanel() {</span>
+
+        <span class="s1">JPanel jpanel = </span><span class="s0">new </span><span class="s1">JPanel()</span><span class="s0">;</span>
+
+        <span class="s1">JLabel titleLabel = </span><span class="s0">new </span><span class="s1">JLabel(</span><span class="s3">&quot;Reservation Details&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">titleLabel.setFont(</span><span class="s0">new </span><span class="s1">Font(</span><span class="s3">&quot;sans-serif&quot;</span><span class="s0">,</span><span class="s1">Font.PLAIN</span><span class="s0">,</span><span class="s2">18</span><span class="s1">))</span><span class="s0">;</span>
+
+        <span class="s1">jpanel.add(titleLabel)</span><span class="s0">;</span>
+
+        <span class="s0">return </span><span class="s1">jpanel</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">private </span><span class="s1">JPanel createDetailsPanel() {</span>
+
+        <span class="s1">JPanel jpanel = </span><span class="s0">new </span><span class="s1">JPanel()</span><span class="s0">;</span>
+        <span class="s1">jpanel.setLayout(</span><span class="s0">new </span><span class="s1">GridBagLayout())</span><span class="s0">;</span>
+
+        <span class="s0">int </span><span class="s1">gridy = </span><span class="s2">0</span><span class="s0">;</span>
+
+        <span class="s1">JLabel resIDLabel = </span><span class="s0">new </span><span class="s1">JLabel(</span><span class="s3">&quot;Reservation ID: &quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">addComponent(jpanel</span><span class="s0">, </span><span class="s1">resIDLabel</span><span class="s0">, </span><span class="s2">0</span><span class="s0">, </span><span class="s1">gridy</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s1">topInsets</span><span class="s0">,</span>
+                <span class="s1">GridBagConstraints.LINE_START</span><span class="s0">, </span><span class="s1">GridBagConstraints.HORIZONTAL)</span><span class="s0">;</span>
+
+        <span class="s1">resIDField = </span><span class="s0">new </span><span class="s1">JTextField(</span><span class="s2">25</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">addComponent(jpanel</span><span class="s0">, </span><span class="s1">resIDField</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s1">gridy++</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s1">topInsets</span><span class="s0">,</span>
+                <span class="s1">GridBagConstraints.LINE_START</span><span class="s0">, </span><span class="s1">GridBagConstraints.HORIZONTAL)</span><span class="s0">;</span>
+
+        <span class="s1">JLabel tableNoLabel = </span><span class="s0">new </span><span class="s1">JLabel(</span><span class="s3">&quot;Table Number: &quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">addComponent(jpanel</span><span class="s0">, </span><span class="s1">tableNoLabel</span><span class="s0">, </span><span class="s2">0</span><span class="s0">, </span><span class="s1">gridy</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s1">topInsets</span><span class="s0">,</span>
+                <span class="s1">GridBagConstraints.LINE_START</span><span class="s0">, </span><span class="s1">GridBagConstraints.HORIZONTAL)</span><span class="s0">;</span>
+
+        <span class="s1">tableNoField = </span><span class="s0">new </span><span class="s1">JTextField(</span><span class="s2">25</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">addComponent(jpanel</span><span class="s0">, </span><span class="s1">tableNoField</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s1">gridy++</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s1">topInsets</span><span class="s0">,</span>
+                <span class="s1">GridBagConstraints.LINE_START</span><span class="s0">, </span><span class="s1">GridBagConstraints.HORIZONTAL)</span><span class="s0">;</span>
+
+        <span class="s1">JLabel peopleLabel = </span><span class="s0">new </span><span class="s1">JLabel(</span><span class="s3">&quot;People Amount: &quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">addComponent(jpanel</span><span class="s0">, </span><span class="s1">peopleLabel</span><span class="s0">, </span><span class="s2">0</span><span class="s0">, </span><span class="s1">gridy</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s1">normalInsets</span><span class="s0">,</span>
+                <span class="s1">GridBagConstraints.LINE_START</span><span class="s0">, </span><span class="s1">GridBagConstraints.HORIZONTAL)</span><span class="s0">;</span>
+
+        <span class="s1">peopleField = </span><span class="s0">new </span><span class="s1">JTextField(</span><span class="s2">25</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">addComponent(jpanel</span><span class="s0">, </span><span class="s1">peopleField</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s1">gridy++</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s1">normalInsets</span><span class="s0">,</span>
+                <span class="s1">GridBagConstraints.LINE_START</span><span class="s0">, </span><span class="s1">GridBagConstraints.HORIZONTAL)</span><span class="s0">;</span>
+
+        <span class="s1">JLabel custIDLabel = </span><span class="s0">new </span><span class="s1">JLabel(</span><span class="s3">&quot;Customer ID: &quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">addComponent(jpanel</span><span class="s0">, </span><span class="s1">custIDLabel</span><span class="s0">, </span><span class="s2">0</span><span class="s0">, </span><span class="s1">gridy</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s1">normalInsets</span><span class="s0">,</span>
+                <span class="s1">GridBagConstraints.LINE_START</span><span class="s0">, </span><span class="s1">GridBagConstraints.HORIZONTAL)</span><span class="s0">;</span>
+
+        <span class="s1">custIDField = </span><span class="s0">new </span><span class="s1">JTextField(</span><span class="s2">25</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">addComponent(jpanel</span><span class="s0">, </span><span class="s1">custIDField</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s1">gridy++</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s1">normalInsets</span><span class="s0">,</span>
+                <span class="s1">GridBagConstraints.LINE_START</span><span class="s0">, </span><span class="s1">GridBagConstraints.HORIZONTAL)</span><span class="s0">;</span>
+
+        <span class="s1">JLabel resStatusLabel = </span><span class="s0">new </span><span class="s1">JLabel(</span><span class="s3">&quot;Reservation Status: &quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">addComponent(jpanel</span><span class="s0">, </span><span class="s1">resStatusLabel</span><span class="s0">, </span><span class="s2">0</span><span class="s0">, </span><span class="s1">gridy</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s1">normalInsets</span><span class="s0">,</span>
+                <span class="s1">GridBagConstraints.LINE_START</span><span class="s0">, </span><span class="s1">GridBagConstraints.HORIZONTAL)</span><span class="s0">;</span>
+
+        <span class="s1">resStatusField = </span><span class="s0">new </span><span class="s1">JTextField(</span><span class="s2">1</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">addComponent(jpanel</span><span class="s0">, </span><span class="s1">resStatusField</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s1">gridy++</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s1">normalInsets</span><span class="s0">,</span>
+                <span class="s1">GridBagConstraints.LINE_START</span><span class="s0">, </span><span class="s1">GridBagConstraints.HORIZONTAL)</span><span class="s0">;</span>
+
+        <span class="s1">JLabel dateLabel = </span><span class="s0">new </span><span class="s1">JLabel(</span><span class="s3">&quot;Date of reservation: &quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">addComponent(jpanel</span><span class="s0">, </span><span class="s1">dateLabel</span><span class="s0">, </span><span class="s2">0</span><span class="s0">, </span><span class="s1">gridy</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s1">normalInsets</span><span class="s0">,</span>
+                <span class="s1">GridBagConstraints.LINE_START</span><span class="s0">, </span><span class="s1">GridBagConstraints.HORIZONTAL)</span><span class="s0">;</span>
+
+        <span class="s1">dateField = </span><span class="s0">new </span><span class="s1">JTextField(</span><span class="s2">25</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">dateField.setText(</span><span class="s3">&quot;enter in form dd-mm-yyyy or use date-chooser&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">addComponent(jpanel</span><span class="s0">, </span><span class="s1">dateField</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s1">gridy</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s1">normalInsets</span><span class="s0">,</span>
+                <span class="s1">GridBagConstraints.LINE_START</span><span class="s0">, </span><span class="s1">GridBagConstraints.HORIZONTAL)</span><span class="s0">;</span>
+
+        <span class="s1">JButton dateButton = </span><span class="s0">new </span><span class="s1">JButton(</span><span class="s3">&quot;...&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">dateButton.setPreferredSize(</span><span class="s0">new </span><span class="s1">Dimension(</span><span class="s2">20</span><span class="s0">,</span><span class="s2">15</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">addComponent(jpanel</span><span class="s0">, </span><span class="s1">dateButton</span><span class="s0">, </span><span class="s2">2</span><span class="s0">, </span><span class="s1">gridy++</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s1">normalInsets</span><span class="s0">,</span>
+                <span class="s1">GridBagConstraints.LINE_START</span><span class="s0">, </span><span class="s1">GridBagConstraints.HORIZONTAL)</span><span class="s0">;</span>
+        <span class="s1">dateButton.addActionListener(</span><span class="s0">new </span><span class="s1">ActionListener() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">actionPerformed(ActionEvent e) {</span>
+                <span class="s1">DateChooser dateChooser = </span><span class="s0">new </span><span class="s1">DateChooser(AmendResGUI.</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">dateChosen = dateChooser.getDateChosen()</span><span class="s0">;</span>
+
+                <span class="s0">if</span><span class="s1">(dateChosen!=</span><span class="s0">null</span><span class="s1">) {</span>
+                    <span class="s1">System.out.println(dateChosen.get(Calendar.DATE) + </span><span class="s3">&quot;-&quot; </span><span class="s1">+</span>
+                            <span class="s1">dateChosen.get(Calendar.MONTH) + </span><span class="s3">&quot;-&quot; </span><span class="s1">+</span>
+                            <span class="s1">dateChosen.get(Calendar.YEAR))</span><span class="s0">;</span>
+
+                    <span class="s1">String dayString=</span><span class="s3">&quot;&quot;</span><span class="s0">, </span><span class="s1">monthString=</span><span class="s3">&quot;&quot;</span><span class="s0">;</span>
+
+                    <span class="s0">if</span><span class="s1">(dateChosen.get(Calendar.DATE)&lt;</span><span class="s2">10</span><span class="s1">)</span>
+                        <span class="s1">dayString = </span><span class="s3">&quot;0&quot; </span><span class="s1">+ dateChosen.get(Calendar.DATE)</span><span class="s0">;</span>
+                    <span class="s0">else</span>
+                        <span class="s1">dayString = </span><span class="s3">&quot;&quot; </span><span class="s1">+ dateChosen.get(Calendar.DATE)</span><span class="s0">;</span>
+
+                    <span class="s0">if</span><span class="s1">(dateChosen.get(Calendar.MONTH)&lt;</span><span class="s2">10</span><span class="s1">)</span>
+                        <span class="s1">monthString = </span><span class="s3">&quot;0&quot; </span><span class="s1">+ dateChosen.get(Calendar.MONTH)</span><span class="s0">;</span>
+                    <span class="s0">else</span>
+                        <span class="s1">monthString = </span><span class="s3">&quot;&quot; </span><span class="s1">+ dateChosen.get(Calendar.MONTH)</span><span class="s0">;</span>
+
+                    <span class="s1">dateField.setText(dayString + </span><span class="s3">&quot;-&quot; </span><span class="s1">+ monthString + </span><span class="s3">&quot;-&quot; </span><span class="s1">+ dateChosen.get(Calendar.YEAR))</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s0">;</span>
+        <span class="s1">JLabel billAmountLabel = </span><span class="s0">new </span><span class="s1">JLabel(</span><span class="s3">&quot;Bill Amount: &quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">addComponent(jpanel</span><span class="s0">, </span><span class="s1">billAmountLabel</span><span class="s0">, </span><span class="s2">0</span><span class="s0">, </span><span class="s1">gridy</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s1">normalInsets</span><span class="s0">,</span>
+                <span class="s1">GridBagConstraints.LINE_START</span><span class="s0">, </span><span class="s1">GridBagConstraints.HORIZONTAL)</span><span class="s0">;</span>
+
+        <span class="s1">billAmountField = </span><span class="s0">new </span><span class="s1">JTextField(</span><span class="s2">1</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">addComponent(jpanel</span><span class="s0">, </span><span class="s1">billAmountField</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s1">gridy++</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s2">1</span><span class="s0">, </span><span class="s1">normalInsets</span><span class="s0">,</span>
+                <span class="s1">GridBagConstraints.LINE_START</span><span class="s0">, </span><span class="s1">GridBagConstraints.HORIZONTAL)</span><span class="s0">;</span>
+
+
+        <span class="s0">return </span><span class="s1">jpanel</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">private void </span><span class="s1">addComponent(Container container</span><span class="s0">, </span><span class="s1">Component component</span><span class="s0">,</span>
+                              <span class="s0">int </span><span class="s1">gridx</span><span class="s0">, int </span><span class="s1">gridy</span><span class="s0">, int </span><span class="s1">gridwidth</span><span class="s0">, int </span><span class="s1">gridheight</span><span class="s0">, </span><span class="s1">Insets insets</span><span class="s0">,</span>
+                              <span class="s0">int </span><span class="s1">anchor</span><span class="s0">, int </span><span class="s1">fill) {</span>
+
+        <span class="s1">GridBagConstraints gbc = </span><span class="s0">new </span><span class="s1">GridBagConstraints(gridx</span><span class="s0">, </span><span class="s1">gridy</span><span class="s0">,</span>
+                <span class="s1">gridwidth</span><span class="s0">, </span><span class="s1">gridheight</span><span class="s0">, </span><span class="s2">0.0</span><span class="s0">, </span><span class="s2">0.0</span><span class="s0">, </span><span class="s1">anchor</span><span class="s0">, </span><span class="s1">fill</span><span class="s0">, </span><span class="s1">insets</span><span class="s0">, </span><span class="s2">5</span><span class="s0">, </span><span class="s2">5</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s1">container.add(component</span><span class="s0">, </span><span class="s1">gbc)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">private </span><span class="s1">JPanel createSubmitPanel() {</span>
+        <span class="s1">JPanel jpanel = </span><span class="s0">new </span><span class="s1">JPanel()</span><span class="s0">;</span>
+
+        <span class="s1">JButton addButton = </span><span class="s0">new </span><span class="s1">JButton(</span><span class="s3">&quot;Add Reservation&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s1">addButton.addActionListener(</span><span class="s0">new </span><span class="s1">ActionListener() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">actionPerformed(ActionEvent e) {</span>
+
+                <span class="s1">String date = dateField.getText()</span><span class="s0">;</span>
+
+                <span class="s1">Reservations reservations</span><span class="s0">;</span>
+
+                <span class="s0">if </span><span class="s1">(date.length() &gt;= </span><span class="s2">7</span><span class="s1">) { </span><span class="s4">//if date of birth comes from the date chooser app it'll be good anyway but</span>
+                    <span class="s4">//                    //we need some tests if the user supplies it manually in the text-field</span>
+
+                    <span class="s0">try </span><span class="s1">{</span>
+                        <span class="s0">int </span><span class="s1">day = Integer.parseInt(date.substring(</span><span class="s2">0</span><span class="s0">, </span><span class="s2">2</span><span class="s1">))</span><span class="s0">;</span>
+                        <span class="s0">int </span><span class="s1">month = Integer.parseInt(date.substring(</span><span class="s2">3</span><span class="s0">, </span><span class="s2">5</span><span class="s1">))</span><span class="s0">;</span>
+                        <span class="s0">int </span><span class="s1">year = Integer.parseInt(date.substring(</span><span class="s2">6</span><span class="s0">, </span><span class="s1">date.length()))</span><span class="s0">;</span>
+
+                        <span class="s1">GregorianCalendar dateGC = </span><span class="s0">new </span><span class="s1">GregorianCalendar(year</span><span class="s0">, </span><span class="s1">month - </span><span class="s2">1</span><span class="s0">, </span><span class="s1">day)</span><span class="s0">;</span>
+                        <span class="s1">dateGC.setLenient(</span><span class="s0">false</span><span class="s1">)</span><span class="s0">; </span><span class="s4">//do this to ensure values like 13 are considered invalid as the month value, 32 invalid as the day value etc</span>
+                        <span class="s1">dateGC.getTime()</span><span class="s0">; </span><span class="s4">//throws an exception if the date of birth was dodgy</span>
+
+                        <span class="s1">System.out.println(dateGC.get(Calendar.DATE) + </span><span class="s3">&quot;-&quot; </span><span class="s1">+</span>
+                                <span class="s1">(dateGC.get(Calendar.MONTH) + </span><span class="s2">1</span><span class="s1">) + </span><span class="s3">&quot;-&quot; </span><span class="s1">+</span>
+                                <span class="s1">dateGC.get(Calendar.YEAR))</span><span class="s0">;</span>
+
+                        <span class="s0">float </span><span class="s1">bA = </span><span class="s2">0</span><span class="s0">;</span>
+                        <span class="s1">String billA = billAmountField.getText()</span><span class="s0">;</span>
+                        <span class="s0">if </span><span class="s1">(billA != </span><span class="s0">null </span><span class="s1">&amp;&amp; !billA.isEmpty()) {</span>
+                            <span class="s1">bA = Float.parseFloat(billA)</span><span class="s0">;</span>
+                        <span class="s1">}</span>
+                        <span class="s0">else</span>
+                        <span class="s1">{</span>
+                            <span class="s1">JOptionPane.showMessageDialog(</span><span class="s0">null,</span><span class="s3">&quot;You did not enter a valid bill Amount&quot;</span><span class="s0">,</span><span class="s3">&quot;Error!!&quot;</span><span class="s0">,</span><span class="s1">JOptionPane.ERROR_MESSAGE)</span><span class="s0">;</span>
+
+                        <span class="s1">}</span>
+                        <span class="s0">int </span><span class="s1">rA = </span><span class="s2">0</span><span class="s0">;</span>
+                        <span class="s1">String ResI = resIDField.getText()</span><span class="s0">;</span>
+                        <span class="s0">if </span><span class="s1">(ResI != </span><span class="s0">null </span><span class="s1">&amp;&amp; !ResI.isEmpty()) {</span>
+                            <span class="s1">rA = Integer.parseInt(ResI)</span><span class="s0">;</span>
+                        <span class="s1">}</span>
+                        <span class="s0">else</span>
+                        <span class="s1">{</span>
+                            <span class="s1">JOptionPane.showMessageDialog(</span><span class="s0">null,</span><span class="s3">&quot;You did not enter a valid reservation ID&quot;</span><span class="s0">,</span><span class="s3">&quot;Error!!&quot;</span><span class="s0">,</span><span class="s1">JOptionPane.ERROR_MESSAGE)</span><span class="s0">;</span>
+                        <span class="s1">}</span>
+                        <span class="s0">int </span><span class="s1">tN = </span><span class="s2">0</span><span class="s0">;</span>
+                        <span class="s1">String TabN = tableNoField.getText()</span><span class="s0">;</span>
+                        <span class="s0">if </span><span class="s1">(TabN != </span><span class="s0">null </span><span class="s1">&amp;&amp; !TabN.isEmpty()) {</span>
+                            <span class="s1">tN = Integer.parseInt(TabN)</span><span class="s0">;</span>
+                        <span class="s1">}</span>
+                        <span class="s0">else</span>
+                        <span class="s1">{</span>
+                            <span class="s1">JOptionPane.showMessageDialog(</span><span class="s0">null,</span><span class="s3">&quot;You did not enter a valid table number&quot;</span><span class="s0">,</span><span class="s3">&quot;Error!!&quot;</span><span class="s0">,</span><span class="s1">JOptionPane.ERROR_MESSAGE)</span><span class="s0">;</span>
+
+                        <span class="s1">}</span>
+                        <span class="s0">int </span><span class="s1">cus = </span><span class="s2">0</span><span class="s0">;</span>
+                        <span class="s1">String CusI = custIDField.getText()</span><span class="s0">;</span>
+                        <span class="s0">if </span><span class="s1">(CusI != </span><span class="s0">null </span><span class="s1">&amp;&amp; !CusI.isEmpty()) {</span>
+                            <span class="s1">cus = Integer.parseInt(CusI)</span><span class="s0">;</span>
+                        <span class="s1">}</span>
+                        <span class="s0">else</span>
+                        <span class="s1">{</span>
+                            <span class="s1">JOptionPane.showMessageDialog(</span><span class="s0">null,</span><span class="s3">&quot;You did not enter a valid customer ID!&quot;</span><span class="s0">,</span><span class="s3">&quot;Error!!&quot;</span><span class="s0">,</span><span class="s1">JOptionPane.ERROR_MESSAGE)</span><span class="s0">;</span>
+                        <span class="s1">}</span>
+                        <span class="s0">int </span><span class="s1">ppl = </span><span class="s2">0</span><span class="s0">;</span>
+                        <span class="s1">String Pp = peopleField.getText()</span><span class="s0">;</span>
+                        <span class="s0">if </span><span class="s1">(Pp != </span><span class="s0">null </span><span class="s1">&amp;&amp; !Pp.isEmpty()) {</span>
+                            <span class="s1">ppl = Integer.parseInt(Pp)</span><span class="s0">;</span>
+                        <span class="s1">}</span>
+                        <span class="s0">else</span>
+                        <span class="s1">{</span>
+                            <span class="s1">JOptionPane.showMessageDialog(</span><span class="s0">null,</span><span class="s3">&quot;You did not enter a valid people  amount  &quot;</span><span class="s0">,</span><span class="s3">&quot;Error!!&quot;</span><span class="s0">,</span><span class="s1">JOptionPane.ERROR_MESSAGE)</span><span class="s0">;</span>
+
+                        <span class="s1">}</span>
+
+                        <span class="s1">ArrayList&lt;Reservations&gt; allRes = </span><span class="s0">new </span><span class="s1">ArrayList&lt;Reservations&gt;()</span><span class="s0">;</span>
+
+                        <span class="s1">ArrayList&lt;Reservations&gt; foundRes = </span><span class="s0">new </span><span class="s1">ArrayList&lt;Reservations&gt;()</span><span class="s0">;</span>
+
+                        <span class="s0">int </span><span class="s1">searchKey = Integer.parseInt(JOptionPane.showInputDialog(</span><span class="s3">&quot;Please enter the number of the reservation you wish to amend&quot;</span><span class="s1">))</span><span class="s0">;</span>
+                        <span class="s0">for </span><span class="s1">(Reservations Ar : allRes)</span>
+                            <span class="s0">if </span><span class="s1">(Ar.getResID()==String.valueOf(searchKey))</span>
+                                <span class="s1">foundRes.add(Ar)</span><span class="s0">;</span>
+
+                        <span class="s1">String text = </span><span class="s3">&quot;&quot;</span><span class="s0">;</span>
+
+                        <span class="s0">for </span><span class="s1">(Reservations Ar : foundRes)</span>
+                            <span class="s0">if </span><span class="s1">(Ar != </span><span class="s0">null</span><span class="s1">) {</span>
+                                <span class="s1">text += Ar + </span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s0">;</span>
+                            <span class="s1">}</span>
+                        <span class="s0">int </span><span class="s1">searchID = Integer.parseInt(JOptionPane.showInputDialog(</span><span class="s3">&quot;The following reservations matched your search phrase</span><span class="s0">\n\n</span><span class="s3">&quot; </span><span class="s1">+ text +</span>
+                                <span class="s3">&quot;</span><span class="s0">\n\n</span><span class="s3">Please enter the id of the one you want to amend&quot;</span><span class="s1">))</span><span class="s0">;</span>
+                        <span class="s1">Reservations ResToAmend = </span><span class="s0">null;</span>
+
+                        <span class="s0">for </span><span class="s1">(Reservations Ar : foundRes)</span>
+                            <span class="s0">if </span><span class="s1">(Ar != </span><span class="s0">null </span><span class="s1">&amp;&amp; Ar.getResID()==String.valueOf(searchID))</span>
+                                <span class="s1">ResToAmend = Ar</span><span class="s0">;</span>
+                        <span class="s0">for </span><span class="s1">(Reservations Ar : foundRes)</span>
+                        <span class="s0">if </span><span class="s1">(Ar != </span><span class="s0">null </span><span class="s1">&amp;&amp; Ar.getCustID()==searchID)</span>
+                            <span class="s1">ResToAmend = Ar</span><span class="s0">;</span>
+                        <span class="s0">for </span><span class="s1">(Reservations Ar : foundRes)</span>
+                        <span class="s0">if </span><span class="s1">(Ar != </span><span class="s0">null </span><span class="s1">&amp;&amp; Ar.getTableNo()==searchID)</span>
+                            <span class="s1">ResToAmend = Ar</span><span class="s0">;</span>
+                        <span class="s0">for </span><span class="s1">(Reservations Ar : foundRes)</span>
+                        <span class="s0">if </span><span class="s1">(Ar != </span><span class="s0">null </span><span class="s1">&amp;&amp; Ar.getPeople()==String.valueOf(searchID))</span>
+                            <span class="s1">ResToAmend = Ar</span><span class="s0">;</span>
+                        <span class="s0">for </span><span class="s1">(Reservations Ar : foundRes)</span>
+                        <span class="s0">if </span><span class="s1">(Ar.getDate()== </span><span class="s0">new </span><span class="s1">GregorianCalendar(searchID</span><span class="s0">,</span><span class="s1">searchID</span><span class="s0">,</span><span class="s1">searchID))</span>
+                            <span class="s1">ResToAmend = Ar</span><span class="s0">;</span>
+                        <span class="s0">for </span><span class="s1">(Reservations Ar : foundRes)</span>
+                        <span class="s0">if </span><span class="s1">(Ar != </span><span class="s0">null </span><span class="s1">&amp;&amp; Ar.getBillAmount()==String.valueOf(searchID))</span>
+                            <span class="s1">ResToAmend = Ar</span><span class="s0">;</span>
+
+                        <span class="s1">String amendChoice = JOptionPane.showInputDialog(</span><span class="s3">&quot;The details of the reservations you wish to amend are:</span><span class="s0">\n\n</span><span class="s3">&quot; </span><span class="s1">+ ResToAmend + </span><span class="s3">&quot;</span><span class="s0">\n\n</span><span class="s3">1. Amend Reservation ID </span><span class="s0">\n</span><span class="s3">2. Amend Customer ID&quot; </span><span class="s1">+</span>
+                                <span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">3. Amend table number</span><span class="s0">\n</span><span class="s3">4. Amend people amount</span><span class="s0">\n</span><span class="s3">5. Amend Reservation date</span><span class="s0">\n</span><span class="s3">6. Amend Reservation Status</span><span class="s0">\n</span><span class="s3">7. Amend Bill Amount </span><span class="s0">\n</span><span class="s3">8. Cancel Amendment</span><span class="s0">\n\n</span><span class="s3">Please enter your choice&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+                        <span class="s0">int </span><span class="s1">amendChoiceAsInt = Integer.parseInt(amendChoice)</span><span class="s0">;</span>
+                        <span class="s0">while</span><span class="s1">(amendChoiceAsInt&lt;</span><span class="s2">1 </span><span class="s1">|| amendChoiceAsInt&gt;</span><span class="s2">8</span><span class="s1">){</span>
+                            <span class="s1">amendChoice = JOptionPane.showInputDialog(</span><span class="s3">&quot;The details of the Table you wish to amend are:</span><span class="s0">\n\n</span><span class="s3">&quot; </span><span class="s1">+</span>
+                                    <span class="s1">ResToAmend + </span><span class="s3">&quot;</span><span class="s0">\n\n</span><span class="s3">1. Amend Reservation ID </span><span class="s0">\n</span><span class="s3">2. Amend Customer ID&quot; </span><span class="s1">+</span>
+                                    <span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">3. Amend table number</span><span class="s0">\n</span><span class="s3">4. Amend people amount</span><span class="s0">\n</span><span class="s3">5. Amend Reservation date&quot; </span><span class="s1">+</span>
+                                    <span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">6. Amend Reservation Status</span><span class="s0">\n</span><span class="s3">7. Amend Bill Amount </span><span class="s0">\n</span><span class="s3">8. Cancel Amendment</span><span class="s0">\n</span><span class="s3">&quot; </span><span class="s1">+</span>
+                                    <span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">Please enter your choice</span><span class="s0">\n</span><span class="s3">Must be a value between 1 and 3 inclusive&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+                            <span class="s1">amendChoiceAsInt = Integer.parseInt(amendChoice)</span><span class="s0">;</span>
+                        <span class="s1">}</span>
+                        <span class="s0">switch</span><span class="s1">(amendChoice){</span>
+                            <span class="s0">case </span><span class="s3">&quot;1&quot;</span><span class="s1">:</span>
+                                <span class="s1">String newResIDAsString = JOptionPane.showInputDialog(</span><span class="s3">&quot;Please enter the new Reservation ID for the reservation:&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                                <span class="s0">int </span><span class="s1">newResID = Integer.parseInt(newResIDAsString)</span><span class="s0">;</span>
+                                <span class="s0">if </span><span class="s1">(newResID!=</span><span class="s2">0</span><span class="s1">) {</span>
+                                    <span class="s1">ResToAmend.setResID(newResID)</span><span class="s0">;</span>
+                                <span class="s1">}</span>
+                                <span class="s0">else</span>
+                                <span class="s0">break;</span>
+
+                            <span class="s0">case </span><span class="s3">&quot;2&quot;</span><span class="s1">:</span>
+
+                                <span class="s1">String newCustIDAsString = JOptionPane.showInputDialog(</span><span class="s3">&quot;Please enter the new Customer ID for the reservation:&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                                <span class="s0">int </span><span class="s1">newCustID = Integer.parseInt(newCustIDAsString)</span><span class="s0">;</span>
+                                <span class="s0">if </span><span class="s1">(newCustID!=</span><span class="s2">0</span><span class="s1">){</span>
+                                    <span class="s1">ResToAmend.setCustID(newCustID)</span><span class="s0">;</span>
+                                <span class="s1">}</span>
+                                <span class="s0">else</span>
+                                <span class="s0">break;</span>
+                            <span class="s0">case </span><span class="s3">&quot;3&quot;</span><span class="s1">:</span>
+                                <span class="s1">String newTableNoAsString = JOptionPane.showInputDialog(</span><span class="s3">&quot;Please enter the new Table number for the reservation:&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                                <span class="s0">int </span><span class="s1">newTableNo = Integer.parseInt(newTableNoAsString)</span><span class="s0">;</span>
+                                <span class="s0">while</span><span class="s1">(newTableNo&lt;=</span><span class="s2">0</span><span class="s1">) {</span>
+                                    <span class="s1">newTableNoAsString = JOptionPane.showInputDialog(</span><span class="s3">&quot;Please enter the new Table number for the reservation:&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                                    <span class="s1">newTableNo = Integer.parseInt(newTableNoAsString)</span><span class="s0">;</span>
+
+                                <span class="s1">}</span>
+                                <span class="s0">break;</span>
+                            <span class="s0">case </span><span class="s3">&quot;4&quot;</span><span class="s1">:</span>
+                                <span class="s1">String newPeopleAsString = JOptionPane.showInputDialog(</span><span class="s3">&quot;Please enter the new amount of people for the table:&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                                <span class="s0">int </span><span class="s1">newPeople = Integer.parseInt(newPeopleAsString)</span><span class="s0">;</span>
+                                <span class="s0">while</span><span class="s1">(newPeople&lt;=</span><span class="s2">0</span><span class="s1">||newPeople&gt;</span><span class="s2">10</span><span class="s1">) {</span>
+                                    <span class="s1">newPeople = Integer.parseInt(newPeopleAsString)</span><span class="s0">;</span>
+                                <span class="s1">}</span>
+                                <span class="s1">ResToAmend.setPeople(newPeople)</span><span class="s0">;</span>
+                                <span class="s0">break;</span>
+                            <span class="s0">case </span><span class="s3">&quot;5&quot;</span><span class="s1">:</span>
+                                <span class="s0">int </span><span class="s1">newDay = Integer.parseInt(JOptionPane.showInputDialog(</span><span class="s3">&quot;Please enter the new day of reservation for the table:&quot;</span><span class="s1">))</span><span class="s0">;</span>
+                                <span class="s0">while</span><span class="s1">(newDay&gt;=</span><span class="s2">31</span><span class="s1">)</span>
+                                <span class="s1">{</span>
+                                     <span class="s1">newDay = Integer.parseInt(JOptionPane.showInputDialog(</span><span class="s3">&quot;Please enter the new day of reservation for the table:&quot;</span><span class="s1">))</span><span class="s0">;</span>
+
+                                <span class="s1">}</span>
+                                <span class="s0">int </span><span class="s1">newMonth = Integer.parseInt(JOptionPane.showInputDialog(</span><span class="s3">&quot;Please enter the new month for the reservation for the table:&quot;</span><span class="s1">))</span><span class="s0">;</span>
+                                <span class="s0">while </span><span class="s1">(newMonth&lt;=</span><span class="s2">0</span><span class="s1">||newMonth&gt;=</span><span class="s2">12</span><span class="s1">){</span>
+                                    <span class="s1">newMonth = Integer.parseInt(JOptionPane.showInputDialog(</span><span class="s3">&quot;Please enter the new month for the reservation for the table:&quot;</span><span class="s1">))</span><span class="s0">;</span>
+                                <span class="s1">}</span>
+
+                                <span class="s0">int </span><span class="s1">newYear = Integer.parseInt(JOptionPane.showInputDialog(</span><span class="s3">&quot;Please enter the new year for the reservation for the table:&quot;</span><span class="s1">))</span><span class="s0">;</span>
+                                <span class="s0">while </span><span class="s1">(newYear&lt;</span><span class="s2">2020</span><span class="s1">||newYear&gt;</span><span class="s2">2021</span><span class="s1">) {</span>
+                                    <span class="s1">newYear = Integer.parseInt(JOptionPane.showInputDialog(</span><span class="s3">&quot;Please enter the new year for the reservation for the table:&quot;</span><span class="s1">))</span><span class="s0">;</span>
+                                <span class="s1">}</span>
+                                <span class="s1">GregorianCalendar  newDate = </span><span class="s0">new </span><span class="s1">GregorianCalendar(newDay</span><span class="s0">,</span><span class="s1">newMonth</span><span class="s0">,</span><span class="s1">newYear)</span><span class="s0">;</span>
+
+
+                                <span class="s0">break;</span>
+                            <span class="s0">case </span><span class="s3">&quot;6&quot;</span><span class="s1">:</span>
+                                <span class="s1">String newResStatus = JOptionPane.showInputDialog(</span><span class="s3">&quot;Please enter the new status for the reservation for the table:&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                                <span class="s1">ResToAmend.setResStatus(newResStatus)</span><span class="s0">;</span>
+                            <span class="s0">case </span><span class="s3">&quot;7&quot;</span><span class="s1">:</span>
+                                <span class="s1">String newBillAmount = JOptionPane.showInputDialog(</span><span class="s3">&quot;Please enter the new bill amount  for the table:&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                                <span class="s0">float </span><span class="s1">newBill = Float.parseFloat(newBillAmount)</span><span class="s0">;</span>
+                                <span class="s1">ResToAmend.setBillAmount(newBill)</span><span class="s0">;</span>
+
+                            <span class="s0">case </span><span class="s3">&quot;8&quot;</span><span class="s1">:</span>
+                                <span class="s0">break;</span>
+                        <span class="s1">}</span>
+                        <span class="s1">JOptionPane.showMessageDialog(</span><span class="s0">null,</span><span class="s3">&quot;Reservation details now amended!&quot;</span><span class="s0">,</span>
+                                <span class="s3">&quot;Reservation Amended&quot;</span><span class="s0">,</span><span class="s1">JOptionPane.INFORMATION_MESSAGE)</span><span class="s0">;</span>
+                        <span class="s1">foundRes.clear()</span><span class="s0">;</span>
+
+
+
+                        <span class="s1">Reservations r = </span><span class="s0">new </span><span class="s1">Reservations(rA</span><span class="s0">,</span><span class="s1">tN</span><span class="s0">,</span><span class="s1">cus</span><span class="s0">,</span><span class="s1">ppl</span><span class="s0">,</span><span class="s1">dateGC</span><span class="s0">, </span><span class="s1">resStatusField.getText()</span><span class="s0">,</span><span class="s1">bA)</span><span class="s0">;</span>
+                        <span class="s1">allRes.add(r)</span><span class="s0">;</span>
+
+                        <span class="s1">JOptionPane.showMessageDialog(</span><span class="s0">null, </span><span class="s3">&quot;Reservation details added</span><span class="s0">\n\n</span><span class="s3">Details are:  &quot; </span><span class="s1">+ r</span><span class="s0">, </span><span class="s3">&quot;Reservation Is Added&quot;</span><span class="s0">, </span><span class="s1">JOptionPane.INFORMATION_MESSAGE)</span><span class="s0">;</span>
+                    <span class="s1">} </span><span class="s0">catch </span><span class="s1">(NumberFormatException nfe) {</span>
+                        <span class="s1">JOptionPane.showMessageDialog(</span><span class="s0">null, </span><span class="s3">&quot;Date must be in the form dd-mm-yyyy&quot;</span><span class="s0">, </span><span class="s3">&quot;Invalid Date&quot;</span><span class="s0">, </span><span class="s1">JOptionPane.ERROR_MESSAGE)</span><span class="s0">;</span>
+                    <span class="s1">} </span><span class="s0">catch </span><span class="s1">(IllegalArgumentException iae) {</span>
+                        <span class="s0">if</span><span class="s1">(iae.getMessage().contains(</span><span class="s3">&quot;0&quot;</span><span class="s1">))</span>
+                            <span class="s1">JOptionPane.showMessageDialog(</span><span class="s0">null, </span><span class="s1">iae.getMessage()</span><span class="s0">, </span><span class="s3">&quot;Invalid Reservation ID&quot;</span><span class="s0">, </span><span class="s1">JOptionPane.ERROR_MESSAGE)</span><span class="s0">;</span>
+                        <span class="s0">else if</span><span class="s1">(iae.getMessage().contains(</span><span class="s3">&quot;custID&quot;</span><span class="s1">))</span>
+                            <span class="s1">JOptionPane.showMessageDialog(</span><span class="s0">null, </span><span class="s1">iae.getMessage()</span><span class="s0">, </span><span class="s3">&quot;Invalid Customer ID&quot;</span><span class="s0">, </span><span class="s1">JOptionPane.ERROR_MESSAGE)</span><span class="s0">;</span>
+                        <span class="s0">else if</span><span class="s1">(iae.getMessage().contains(</span><span class="s3">&quot;people&quot;</span><span class="s1">))</span>
+                            <span class="s1">JOptionPane.showMessageDialog(</span><span class="s0">null, </span><span class="s1">iae.getMessage()</span><span class="s0">, </span><span class="s3">&quot;Invalid People Amount: &quot;</span><span class="s0">, </span><span class="s1">JOptionPane.ERROR_MESSAGE)</span><span class="s0">;</span>
+                        <span class="s0">else if</span><span class="s1">(iae.getMessage().contains(</span><span class="s3">&quot;mdcemekc&quot;</span><span class="s1">))</span>
+                            <span class="s1">JOptionPane.showMessageDialog(</span><span class="s0">null, </span><span class="s1">iae.getMessage()</span><span class="s0">, </span><span class="s3">&quot;Invalid People Amount: &quot;</span><span class="s0">, </span><span class="s1">JOptionPane.ERROR_MESSAGE)</span><span class="s0">;</span>
+
+                        <span class="s0">else</span>
+                            <span class="s1">JOptionPane.showMessageDialog(</span><span class="s0">null, </span><span class="s3">&quot;The Date of Reservation must have day and month values that must be valid&quot;</span><span class="s0">, </span><span class="s3">&quot;Invalid Date&quot;</span><span class="s0">, </span><span class="s1">JOptionPane.ERROR_MESSAGE)</span><span class="s0">;</span>
+
+                    <span class="s1">}</span>
+                <span class="s1">} </span><span class="s0">else</span>
+                    <span class="s1">JOptionPane.showMessageDialog(</span><span class="s0">null, </span><span class="s3">&quot;Date of Reservation must be at least 7 characters long&quot;</span><span class="s0">, </span><span class="s3">&quot;Invalid Date of Reservation&quot;</span><span class="s0">, </span><span class="s1">JOptionPane.ERROR_MESSAGE)</span><span class="s0">;</span>
+            <span class="s1">}})</span><span class="s0">;</span>
+
+        <span class="s1">jpanel.add(addButton)</span><span class="s0">;</span>
+
+        <span class="s0">return </span><span class="s1">jpanel</span><span class="s0">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

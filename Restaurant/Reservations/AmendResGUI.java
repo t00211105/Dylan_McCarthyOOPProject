@@ -10,7 +10,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
+//AmendResGUI.java
+/*This java class is accessed through the MainMenu.java. It receives its objects constructors through its constructor class Reservations.java
+ *This class asks the user to input resID,tableNo,CustID,resStatus,people,date and billAmount  and all details are validated then the system clarifies to the user are to enter the resID twice to confirm  the amendments with a confirmation message.Then the System
+ * chooses the details they want to update details within a switch statement and saves the new details in the allRes ArrayList
+ */
 public class AmendResGUI extends JFrame {
 
     private Insets normalInsets = new Insets(10, 10, 0, 10);
@@ -340,7 +344,22 @@ public class AmendResGUI extends JFrame {
 
                         String amendChoice = JOptionPane.showInputDialog("The details of the reservations you wish to amend are:\n\n" + ResToAmend + "\n\n1. Amend Reservation ID \n2. Amend Customer ID" +
                                 "\n3. Amend table number\n4. Amend people amount\n5. Amend Reservation date\n6. Amend Reservation Status\n7. Amend Bill Amount \n8. Cancel Amendment\n\nPlease enter your choice");
+/*****************************************************
 
+ *    Title: AmendResGUI.java, lines 29
+
+ *    Author: T0021105: Dylan McCarthy
+
+ *    Site owner/sponsor:  John Brosnan lab 12
+
+ *    Date: 5/12/2020
+
+ *    Code version:  NA
+ *
+ *    Availability:  NA
+ *
+
+ *****************************************************/
                         int amendChoiceAsInt = Integer.parseInt(amendChoice);
                         while(amendChoiceAsInt<1 || amendChoiceAsInt>8){
                             amendChoice = JOptionPane.showInputDialog("The details of the Table you wish to amend are:\n\n" +
@@ -355,30 +374,57 @@ public class AmendResGUI extends JFrame {
                             case "1":
                                 String newResIDAsString = JOptionPane.showInputDialog("Please enter the new Reservation ID for the reservation:");
                                 int newResID = Integer.parseInt(newResIDAsString);
-                                ResToAmend.setResID(newResID);
+                                if (newResID!=0) {
+                                    ResToAmend.setResID(newResID);
+                                }
+                                else
                                 break;
 
                             case "2":
 
                                 String newCustIDAsString = JOptionPane.showInputDialog("Please enter the new Customer ID for the reservation:");
                                 int newCustID = Integer.parseInt(newCustIDAsString);
-                                ResToAmend.setCustID(newCustID);
+                                if (newCustID!=0){
+                                    ResToAmend.setCustID(newCustID);
+                                }
+                                else
                                 break;
                             case "3":
                                 String newTableNoAsString = JOptionPane.showInputDialog("Please enter the new Table number for the reservation:");
                                 int newTableNo = Integer.parseInt(newTableNoAsString);
-                                ResToAmend.setTableNo(newTableNo);
+                                while(newTableNo<=0) {
+                                    newTableNoAsString = JOptionPane.showInputDialog("Please enter the new Table number for the reservation:");
+                                    newTableNo = Integer.parseInt(newTableNoAsString);
+
+                                }
+                                break;
                             case "4":
                                 String newPeopleAsString = JOptionPane.showInputDialog("Please enter the new amount of people for the table:");
                                 int newPeople = Integer.parseInt(newPeopleAsString);
+                                while(newPeople<=0||newPeople>10) {
+                                    newPeople = Integer.parseInt(newPeopleAsString);
+                                }
                                 ResToAmend.setPeople(newPeople);
-
                                 break;
                             case "5":
                                 int newDay = Integer.parseInt(JOptionPane.showInputDialog("Please enter the new day of reservation for the table:"));
+                                while(newDay>=31)
+                                {
+                                     newDay = Integer.parseInt(JOptionPane.showInputDialog("Please enter the new day of reservation for the table:"));
+
+                                }
                                 int newMonth = Integer.parseInt(JOptionPane.showInputDialog("Please enter the new month for the reservation for the table:"));
+                                while (newMonth<=0||newMonth>=12){
+                                    newMonth = Integer.parseInt(JOptionPane.showInputDialog("Please enter the new month for the reservation for the table:"));
+                                }
+
                                 int newYear = Integer.parseInt(JOptionPane.showInputDialog("Please enter the new year for the reservation for the table:"));
+                                while (newYear<2020||newYear>2021) {
+                                    newYear = Integer.parseInt(JOptionPane.showInputDialog("Please enter the new year for the reservation for the table:"));
+                                }
                                 GregorianCalendar  newDate = new GregorianCalendar(newDay,newMonth,newYear);
+
+
                                 break;
                             case "6":
                                 String newResStatus = JOptionPane.showInputDialog("Please enter the new status for the reservation for the table:");

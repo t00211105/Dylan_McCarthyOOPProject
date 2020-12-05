@@ -11,7 +11,11 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.io.*;
-
+//AddResGUI.java
+/*This java class is accessed through the MainMenu.java. It receives its objects constructors through its constructor class Reservations.java
+ *This class asks the user to input ResID,tableNo,custID,people,date,status, billAmount and all details are validated then the system clarifies to the user are they sure about it with a confirmation message.Then the System
+ * adds the details in the allRes ArrayList
+ */
     public class AddResGUI extends JFrame {
 
         private Insets normalInsets = new Insets(10, 10, 0, 10);
@@ -237,7 +241,7 @@ import java.io.*;
 
                     String date = dateField.getText();
 
-                    ArrayList<Reservations> allRes = new ArrayList<>();
+                    /*(ArrayList<Reservations> allRes = new ArrayList<>();
 
                     Reservations r1 = new Reservations(1, 1, 1, 1,new GregorianCalendar(2021,4,4), "CI", 83.12f);
                     Reservations r2 = new Reservations(2, 6, 5, 2,new GregorianCalendar(2021,3,21), "PB", 73.12f);
@@ -250,8 +254,8 @@ import java.io.*;
                     allRes.add(r3);
                     allRes.add(r4);
                     allRes.add(r5);
-                    allRes.add(r6);
-                    try
+                    allRes.add(r6);*/
+                    /*try
                     {
                         FileOutputStream resStream = new FileOutputStream("resData");
                         ObjectOutputStream ResOut = new ObjectOutputStream(resStream);
@@ -262,7 +266,7 @@ import java.io.*;
                     catch (IOException ioe)
                     {
                         ioe.printStackTrace();
-                    }
+                    }*/
 
                     if (date.length() >= 7) { //if date of birth comes from the date chooser app it'll be good anyway but
                         //                    //we need some tests if the user supplies it manually in the text-field
@@ -319,6 +323,15 @@ import java.io.*;
 
                             }
 
+
+
+                            Reservations r1 = new Reservations(1, 1, 1, 1,new GregorianCalendar(2021,4,4), "CI", 83.12f);
+                            Reservations r2 = new Reservations(2, 6, 5, 2,new GregorianCalendar(2021,3,21), "PB", 73.12f);
+                            Reservations r3 = new Reservations(3, 5, 3, 2,new GregorianCalendar(2021,2,2), "CI", 84.12f);
+                            Reservations r4 = new Reservations(4, 4, 2, 6,new GregorianCalendar(2020,12,25), "C", 1223.12f);
+                            Reservations r5 = new Reservations(5, 3, 4, 5, new GregorianCalendar(2021,1,23), "W", 13.12f);
+                            Reservations r6 = new Reservations(6, 2, 7, 4, new GregorianCalendar(2020,12,12), "W", 123.12f);
+                            ArrayList<Reservations> allRes = new ArrayList<>(Arrays.asList(r1,r2,r3,r4,r5,r6));
 
 
 

@@ -7,7 +7,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.*;
-
+//PbResGUI.java
+/*This java class is accessed through the MainMenu.java. It receives its objects constructors through its constructor class Reservations.java
+*This class asks the user what resID would like to pay the bill and it then the system clarifies to the user are they sure about it.Then the System
+* updates the specific resID  status to 'PB'
+ */
 public class PBResGUI extends JFrame {
 
     private Insets normalInsets = new Insets(10, 10, 0, 10);
@@ -43,6 +47,22 @@ public class PBResGUI extends JFrame {
 
         Object PBResGUI = new PBResGUI();
     }
+    /*****************************************************
+
+     *    Title: PBResGUI.java, lines 62-110
+
+     *    Author: T0021105: Dylan McCarthy
+
+     *    Site owner/sponsor:  John Brosnan lab 14 WindowEvenHandler
+
+     *    Date: 5/12/2020
+
+     *    Code version:  NA
+     *
+     *    Availability:  NA
+     *
+
+     *****************************************************/
     private class WindowEventHandler implements WindowListener {
 
         public void windowOpened(WindowEvent e) {

@@ -7,7 +7,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.*;
-
+//RemoveResGUI.java
+/*This java class is accessed through the MainMenu.java. It receives its objects constructors through its constructor class Reservations.java
+ *This class asks the user to input resID and the system receives all the details from that specific resID then the system clarifies to the user are they sure about removing the object with a confirmation message.Then the System
+ * removes the details from the allRes ArrayList
+ */
 public class RemoveResGUI extends JFrame {
 
     private Insets normalInsets = new Insets(10, 10, 0, 10);
@@ -41,7 +45,7 @@ public class RemoveResGUI extends JFrame {
 
     public static void main(String args[]){
 
-        Object RemoveRes =new RemoveResGUI();
+        Object RemoveResGUI = new RemoveResGUI();
     }
     private class WindowEventHandler implements WindowListener {
 
@@ -145,11 +149,6 @@ public class RemoveResGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-
-
-                Reservations reservations;
-
-
                     try {
                         int rA = 0;
                         String ResI = resIDField.getText();
@@ -161,12 +160,39 @@ public class RemoveResGUI extends JFrame {
                             JOptionPane.showMessageDialog(null,"You did not enter a valid reservation ID","Error!!",JOptionPane.ERROR_MESSAGE);
 
                         }
+/*****************************************************
 
+ *    Title: RemoveResGUI.java, lines 29
+
+ *    Author: T0021105: Dylan McCarthy
+
+ *    Site owner/sponsor:  John Brosnan lab 12
+
+ *    Date: 5/12/2020
+
+ *    Code version:  NA
+ *
+ *    Availability:  NA
+ *
+
+ *****************************************************/
                         ArrayList<Reservations> allRes = new ArrayList<Reservations>();
                         ArrayList<Reservations> foundRes = new ArrayList<Reservations>();
                         String searchKey = JOptionPane.showInputDialog("Please enter the ID of the reservation you wish to remove");
                         for (Reservations rr: allRes)
                             if (rr.getResID()==searchKey)
+                                foundRes.add(rr);
+                        for (Reservations rr: allRes)
+                            if (rr.getTableNo()==Integer.parseInt(searchKey))
+                                foundRes.add(rr);
+                        for (Reservations rr: allRes)
+                            if (rr.getCustID()==Integer.parseInt(searchKey))
+                                foundRes.add(rr);
+                        for (Reservations rr: allRes)
+                            if (rr.getPeople()==searchKey)
+                                foundRes.add(rr);
+                        for (Reservations rr: allRes)
+                            if (rr.getDate().equals(Integer.parseInt(searchKey)))
                                 foundRes.add(rr);
 
                         String text="";
