@@ -186,7 +186,22 @@ import java.io.*;
                 public void actionPerformed(ActionEvent e) {
                     DateChooser dateChooser = new DateChooser(AddResGUI.this);
                     dateChosen = dateChooser.getDateChosen();
+/*****************************************************
 
+ *    Title: DateChooser.java
+
+ *    Author: T0021105: Dylan McCarthy
+
+ *    Site owner/sponsor:  John Brosnan Mini-Project-stuff
+
+ *    Date: 5/12/2020
+
+ *    Code version:  NA
+ *
+ *    Availability:  NA
+ *
+
+ *****************************************************/
                     if (dateChosen != null) {
                         System.out.println(dateChosen.get(Calendar.DATE) + "-" +
                                 dateChosen.get(Calendar.MONTH) + "-" +
@@ -267,7 +282,22 @@ import java.io.*;
                     {
                         ioe.printStackTrace();
                     }*/
+/*****************************************************
 
+ *    Title: DateChooser.java
+
+ *    Author: T0021105: Dylan McCarthy
+
+ *    Site owner/sponsor:  John Brosnan Mini-Project-stuff
+
+ *    Date: 5/12/2020
+
+ *    Code version:  NA
+ *
+ *    Availability:  NA
+ *
+
+ *****************************************************/
                     if (date.length() >= 7) { //if date of birth comes from the date chooser app it'll be good anyway but
                         //                    //we need some tests if the user supplies it manually in the text-field
 

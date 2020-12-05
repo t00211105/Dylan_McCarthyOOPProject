@@ -23,6 +23,23 @@ import java.util.Calendar;
 import java.util.Formatter;
 import java.util.GregorianCalendar;
 
+/*****************************************************
+
+ *    Title: DateChooser.java
+
+ *    Author: T0021105: Dylan McCarthy
+
+ *    Site owner/sponsor:  John Brosnan Mini-Project-stuff
+
+ *    Date: 5/12/2020
+
+ *    Code version:  NA
+ *
+ *    Availability:  NA
+ *
+
+ *****************************************************/
+
 public class DateChooser extends JDialog {
 
     JButton backMonthButton;
