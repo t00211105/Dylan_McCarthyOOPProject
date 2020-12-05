@@ -1,24 +1,27 @@
 package Reservations;
 
-/*****************************************************
+/****************************************************
 
- *    Title: MainMenu.java, lines 29
+     Title: MainMenu.java, lines 29
 
- *    Author: T0021105: Dylan McCarthy
+ Author: T0021105: Dylan McCarthy
 
- *    Site owner/sponsor:  John Brosnan lab 13/14
+ Site owner/sponsor:  John Brosnan lab 13/14
 
- *    Date: 4/12/2020
+   Date: 4/12/2020
 
- *    Code version:  NA
- *
- *    Availability:  NA
- *
- *    Modified:  Code refactored (Identifiers renamed)
+     Code version:  NA
 
- *****************************************************/
+     Availability:  NA
 
+ Modified:  Code refactored (Identifiers renamed)
 
+ ************************************/
+
+//MainMenu.java
+/*This class uses JMenu,JFrame,JButtons and is used to go form to form to add/amend/remove/view tables/reservations/customers
+The system uses objects from other files to move class to class
+ */
 
 import javax.swing.*;
 import java.awt.*;
